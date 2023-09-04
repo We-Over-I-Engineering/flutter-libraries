@@ -13,9 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # defaults:
-    #   run:
-    #     working-directory: ./buttons
+    defaults:
+      run:
+        working-directory: buttons
 
     steps:
       - uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
       #   run: cd buttons
 
       - name: Echo path
-        run: cd buttons pwd
+        run: pwd
 
       # - name: Install dependencies
       #   run: dart pub get
