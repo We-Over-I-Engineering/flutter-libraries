@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            Row(),
+            const Row(),
           ],
         ),
       ),

@@ -53,7 +53,7 @@ class WoiCapsuleLoadingButton extends StatelessWidget {
   }
 
   Widget _curcularProgressContainer() {
-    return Container(
+    return SizedBox(
         height: circularProgressSize,
         width: circularProgressSize,
         child: circularProgressIndicator);
