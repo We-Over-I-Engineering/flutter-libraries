@@ -17,6 +17,7 @@ class WoiBaseButton extends StatelessWidget {
     this.fillColor,
     this.isDisabled = false,
     this.iconLocation = IconLocation.start,
+    this.boxShadowList,
   }) : super(key: key);
   final double borderRadius;
   final String? text;
@@ -30,6 +31,7 @@ class WoiBaseButton extends StatelessWidget {
   final IconLocation iconLocation;
   final Widget? icon;
   final Color disabledColor = const Color(0xffD9D9D9);
+  final List<BoxShadow>? boxShadowList;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class WoiBaseButton extends StatelessWidget {
           border: Border.all(
             color: isDisabled ? disabledColor : borderColor ?? Colors.black,
           ),
+          boxShadow: boxShadowList,
         ),
         height: heigth ?? 38,
         width: width,

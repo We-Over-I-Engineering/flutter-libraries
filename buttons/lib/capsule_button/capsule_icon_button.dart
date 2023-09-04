@@ -9,7 +9,6 @@ class WoiCapsuleIconButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     required this.icon,
-    // this.borderRadius = 50,
     this.textStyle,
     this.borderColor,
     this.heigth,
@@ -17,8 +16,8 @@ class WoiCapsuleIconButton extends StatelessWidget {
     this.fillColor,
     this.isDisabled = false,
     this.iconLocation = IconLocation.start,
+    this.boxShadowList,
   }) : super(key: key);
-  // final double borderRadius;
   final String? text;
   final VoidCallback? onTap;
   final TextStyle? textStyle;
@@ -29,7 +28,7 @@ class WoiCapsuleIconButton extends StatelessWidget {
   final bool isDisabled;
   final IconLocation iconLocation;
   final Widget icon;
-
+  final List<BoxShadow>? boxShadowList;
   final Color disabledColor = const Color(0xffD9D9D9);
 
   @override
@@ -43,6 +42,7 @@ class WoiCapsuleIconButton extends StatelessWidget {
           border: Border.all(
             color: isDisabled ? disabledColor : borderColor ?? Colors.black,
           ),
+          boxShadow: boxShadowList,
         ),
         height: heigth ?? 38,
         width: width,
