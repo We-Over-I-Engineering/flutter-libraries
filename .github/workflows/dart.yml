@@ -26,8 +26,8 @@ jobs:
       # - uses: dart-lang/setup-dart@v1
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
-      - name: Update path
-        run: cd ./buttons
+      - name: show files
+        run: ls
 
       - name: Echo path
         run: pwd
