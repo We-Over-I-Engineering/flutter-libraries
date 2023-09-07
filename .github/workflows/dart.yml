@@ -1,60 +1,36 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
+name: Dart # Name of the Action
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main"] # Defining that it will only run on the pull request on the main branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # GitLab has 3 operating systems to run your app in and we will be using ubuntu for that purpose.
 
     defaults:
       run:
-        working-directory: buttons
+        working-directory: buttons # Defining the commands to run in the specific directory since the flutter project is in those libraries
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3 # this command is used to check out (clone) the source code repository into the runner's workspace.
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-
-      # Installing Dart
-      # - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      # Note: This workflow uses the latest stable version of the Flutter SDK.
       # Installing Flutter
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable" # or: 'beta', 'dev' or 'master'
-      # - run: flutter --version
-
-      # - name: Get In buttons Dir
-      #   run: cd buttons
-
-      # - name: Echo path
-      #   run: pwd
-
-      # - name: Install dependencies
-      #   run: flutter pub get
-
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: flutter analyze
+
+      #This is to verify formating in the dart code
+      - name: Run Format
+        run: dart format .
 
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       # - name: Run tests
       #   run: flutter test
-
-      - name: Run Format
-        run: dart format .
