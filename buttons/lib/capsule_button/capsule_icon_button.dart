@@ -48,7 +48,6 @@ class WoiCapsuleIconButton extends StatelessWidget {
         width: width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
           children: [
             iconLocation == IconLocation.start ? icon : Container(),
             _textContainer(),
