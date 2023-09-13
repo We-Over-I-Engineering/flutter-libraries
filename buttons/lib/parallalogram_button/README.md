@@ -1,6 +1,14 @@
 # Parallalogram Button
 
+Here is the list of all of the varients of Parallalogram Button in the library:
+- `IconParallalogramButton`
+- `LoadingParallalogramButton`
+- `ParallalogramButton`
 
+
+
+## Getting started
+Import the following package.
 ```dart
 import 'package:weoveri_button/main.dart';
 ```
