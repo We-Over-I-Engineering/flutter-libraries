@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weoveri_button/enums.dart';
 import 'package:weoveri_button/parallalogram_button/parallalogram_painter.dart';
 
-/// This defines the tilt side for it to be on the right or left side
 /// A button that is tilt from sides and accept a `Text` and `icon` in the center
 /// `Icons` can be in prefix and sufix
 class IconParallalogramButton extends StatelessWidget {
