@@ -7,12 +7,14 @@ class WOIParallelogramPainter extends CustomPainter {
   final Color buttonColor;
   final Color borderColor;
   final double tilt;
+  final Gradient? gradient;
 
   WOIParallelogramPainter({
     this.borderWidth = 1,
     this.buttonColor = Colors.white,
     this.tilt = 10,
     this.borderColor = Colors.white,
+    this.gradient,
   });
   @override
   void paint(Canvas canvas, Size size) {
@@ -36,6 +38,16 @@ class WOIParallelogramPainter extends CustomPainter {
       ..color = buttonColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 0;
+
+    if (gradient != null) {
+      paint_1 = paint_1
+        ..shader = gradient!.createShader(
+          Rect.fromPoints(
+            Offset(0, size.height / 2),
+            Offset(size.width, size.height / 2),
+          ),
+        );
+    }
 
     Path path_1 = Path();
     path_1.moveTo(tilt, 0);

@@ -30,6 +30,7 @@ class WOIParallalogramButton extends StatelessWidget {
     this.textStyle,
     this.textMargin,
     this.tiltSide = TiltSide.right,
+    this.gradient,
   }) : super(key: key);
 
   /// Required Field that will display text in the center
@@ -69,6 +70,11 @@ class WOIParallalogramButton extends StatelessWidget {
   /// Can be [TiltSide.left] or [TiltSide.right]
   final TiltSide? tiltSide;
 
+  /// This is to add gradient in the button
+  /// The proproty for this field is greater then the background button
+  /// So if this is provided the background color will be ignored
+  final Gradient? gradient;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,13 +82,6 @@ class WOIParallalogramButton extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         boxShadow: boxShadow,
-        gradient: const LinearGradient(
-          colors: [
-            Colors.black,
-            Colors.white,
-            Colors.blue,
-          ],
-        ),
       ),
       child: GestureDetector(
         onTap: onPressed!,
@@ -92,6 +91,7 @@ class WOIParallalogramButton extends StatelessWidget {
             borderColor: borderColor ?? buttonColor,
             borderWidth: borderWdth,
             buttonColor: buttonColor,
+            gradient: gradient,
           ),
           child: Center(
             child: Padding(

@@ -126,6 +126,13 @@ class MyApp extends StatelessWidget {
                   tiltSide: TiltSide.right,
                   buttonColor: Colors.black,
                   onPressed: () {},
+                  gradient: const LinearGradient(
+                    colors: [
+                      Colors.black,
+                      Colors.blue,
+                      Colors.green,
+                    ],
+                  ),
                 ),
               ],
             ),
