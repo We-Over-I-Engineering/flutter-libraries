@@ -9,3 +9,6 @@
 
 ## ^0.0.3
 * Update and fixed documentation while adding code on how to use the widgets.
+
+## ^0.0.4
+* New widgets are here! -> Switches/toggles, Radio Button and Checkbox.
