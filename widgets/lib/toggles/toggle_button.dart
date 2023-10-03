@@ -5,7 +5,7 @@ import 'package:weoveri_flutter_widgets/toggles/switch_style_model.dart';
 ///
 /// Here is the very basic way to use the widget
 /// ```dart
-///  WOIToggleButton(
+///  WOISwitchButton(
 ///   value: switchValue,
 ///   onChanged: (bool isSelected) {
 ///     switchValue = isSelected;
@@ -35,7 +35,7 @@ import 'package:weoveri_flutter_widgets/toggles/switch_style_model.dart';
 /// Here is the implementation with all utalization of its customization
 /// ```dart
 ///
-/// WOIToggleButton(
+/// WOISwitchButton(
 ///   activeSwitchStyle: WOISwitchStyleModel(
 ///     thumbColor: Colors.green,
 ///     icon: const Icon(
@@ -81,8 +81,8 @@ import 'package:weoveri_flutter_widgets/toggles/switch_style_model.dart';
 
 ///
 
-class WOIToggleButton extends StatefulWidget {
-  const WOIToggleButton({
+class WOISwitchButton extends StatefulWidget {
+  const WOISwitchButton({
     super.key,
     this.activeSwitchStyle,
     this.inActiveSwitchStyle,
@@ -128,10 +128,10 @@ class WOIToggleButton extends StatefulWidget {
   final double thumbBorderRadius;
 
   @override
-  State<WOIToggleButton> createState() => _WOIToggleButtonState();
+  State<WOISwitchButton> createState() => _WOISwitchButtonState();
 }
 
-class _WOIToggleButtonState extends State<WOIToggleButton>
+class _WOISwitchButtonState extends State<WOISwitchButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late final Duration _duration;
