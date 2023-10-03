@@ -11,4 +11,4 @@ export 'utils/enums.dart';
 export 'switches/switches.dart';
 
 /// Library for radio buttons and checkmarks
-export 'radio_checkmarks/radio_checkbox_library.dart';
+export 'radio_and_checkbox/radio_and_checkbox_library.dart';
