@@ -12,3 +12,6 @@
 
 ## ^0.0.4
 * New widgets are here! -> Switches/toggles, Radio Button and Checkbox.
+
+## ^0.0.5
+* Minor fix in the navigation of radio button and checkbox documentation in readme.
