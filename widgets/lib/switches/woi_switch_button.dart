@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weoveri_flutter_widgets/toggles/switch_style_model.dart';
+import 'package:weoveri_flutter_widgets/switches/switch_style_model.dart';
 
 /// A widget that gives you option to toggle and switch between two sides
 ///
