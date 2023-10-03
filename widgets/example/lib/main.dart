@@ -5,8 +5,16 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
+  bool switchValue = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,9 +24,16 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Buttons'),
+          title: Text(
+            'Widgets'.toUpperCase(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        body: Column(
+        body:
+            //----------Icon Button-------------
+            Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -40,83 +55,6 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            WOITextButton(
-              onTap: () {},
-              width: 300,
-              text: 'Hello There!!!',
-              buttonStyle: WOIButtonStyle(
-                border: Border.all(
-                  width: 4,
-                  color: Colors.blue,
-                ),
-                backgroundColor: Colors.black,
-              ),
-              textStyle: const TextStyle(
-                color: Colors.white,
-              ),
-              heigth: 50,
-            ),
-            WOITextButton(
-              onTap: () {},
-              text: 'Hello There!!!',
-              textStyle: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-              buttonStyle: WOIButtonStyle(
-                gradient: const LinearGradient(
-                  colors: [
-                    Colors.black,
-                    Colors.green,
-                    Colors.blue,
-                    Colors.orange,
-                    Colors.black,
-                  ],
-                ),
-              ),
-              width: 300,
-            ),
-            WOITextButton(
-              onTap: () {},
-              text: 'Icon button'.toUpperCase(),
-              buttonStyle: WOIButtonStyle(
-                sideWidget: const Padding(
-                  padding: EdgeInsets.only(
-                    right: 8.0,
-                  ),
-                  child: Icon(
-                    Icons.add_link,
-                    color: Colors.white,
-                  ),
-                ),
-                widgetLocation: WidgetLocation.start,
-              ),
-              width: 200,
-            ),
-            WOITextButton(
-              onTap: () {},
-              text: 'Icon button'.toUpperCase(),
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-              buttonStyle: WOIButtonStyle(
-                borderRadius: BorderRadius.zero,
-                border: Border.all(
-                  color: Colors.red,
-                  width: 5,
-                ),
-                gradient: const LinearGradient(
-                  colors: [
-                    Colors.blue,
-                    Colors.green,
-                  ],
-                ),
-                backgroundColor: Colors.blue,
-              ),
-              width: 200,
-            ),
-
             //----------Parallalogram Button-------------
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -151,6 +89,20 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
               ),
               onTap: () {},
+            ),
+
+            //----------Switch Button-------------//
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                WOISwitchButton(
+                  value: switchValue,
+                  onChanged: (bool isSelected) {
+                    switchValue = isSelected;
+                    setState(() {});
+                  },
+                ),
+              ],
             ),
           ],
         ),
