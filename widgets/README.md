@@ -49,7 +49,7 @@ Incase of any issues or assistance please reach out to:
 - [Muhammad Saad](mailto:saad@we-over-i.com)
 
 ## Contributors
-- [Saad Javaid Alvi](mailto:saadjavaidalvi@gmail.com)
+- [Saad Javaid Alvi](https://github.com/saadjavaidalvi)
 - [Mahnoor Rizwan](mailto:mahnoor@we-over-i.com)
 
 ## Licence
