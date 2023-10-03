@@ -104,6 +104,47 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                 ),
               ],
             ),
+
+            //----------Radio Buttons-------------//
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                WOIRadioButton(
+                  isSelected: switchValue,
+                  onTap: (bool isSelected) {
+                    switchValue = isSelected;
+                    setState(() {});
+                  },
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 2,
+                  ),
+                  selectedBorder: Border.all(
+                    color: Colors.black,
+                  ),
+                  selectedFillColor: Colors.black,
+                  size: 30,
+                  innerPadding: const EdgeInsets.all(3),
+                  duration: const Duration(
+                    milliseconds: 1,
+                  ),
+                ),
+              ],
+            ),
+
+            //----------Radio Buttons-------------//
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                WOICheckBox(
+                  isChecked: switchValue,
+                  onTap: (bool isSelected) {
+                    switchValue = isSelected;
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
