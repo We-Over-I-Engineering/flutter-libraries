@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weoveri_flutter_widgets/utils/enums.dart';
+import 'package:weoveri_flutter_widgets/buttons/button_enums.dart';
 
 /// This style class is used to style the [WOITextButton]
 /// This has all of the properties to change the appearance of the button

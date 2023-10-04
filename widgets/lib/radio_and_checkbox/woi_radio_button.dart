@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 ///
 /// Furthure if you want to explore the full extent of the widget then we have the selected and non selected states for the radio button
 /// so to customize the radio button in its selected state there would be variables
-/// starting from [selected] or would have [selected] in them
+/// starting from 'selected' or would have 'selected' in them
 ///
 ///
 ///

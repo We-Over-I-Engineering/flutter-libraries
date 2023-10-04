@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weoveri_flutter_widgets/buttons/parallalogram_painter.dart';
 
-import '../utils/enums.dart';
+import 'button_enums.dart';
 
 /// A button that is tilt from sides and accept a `Text` in the center
 ///

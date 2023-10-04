@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weoveri_flutter_widgets/buttons/button_style.dart';
-import '../utils/enums.dart';
+import 'button_enums.dart';
 
 /// A simple text button that can be used as a capsule or rectangular button
 ///

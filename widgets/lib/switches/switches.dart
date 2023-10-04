@@ -1,3 +1,4 @@
+/// A library to import and use switches/toggles
 library switches;
 
 export 'woi_switch_button.dart';
