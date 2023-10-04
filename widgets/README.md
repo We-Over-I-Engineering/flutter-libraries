@@ -17,14 +17,14 @@ The "We Over I Flutter Widgets" package is a comprehensive library of everyday-u
 Here are the list of widgets in the package. You can visit the link below to find out all of the variations of those widgets.
 - [Buttons](https://pub.dev/documentation/weoveri_flutter_widgets/latest/buttons/buttons-library.html)
 - [Switches](https://pub.dev/documentation/weoveri_flutter_widgets/latest/switches/switches-library.html)
-- [Radio/Checkmarks](https://pub.dev/documentation/weoveri_flutter_widgets/latest/radio_and_checkbox/radio_and_checkbox_library.html)
+- [Radio/Checkmarks](https://pub.dev/documentation/weoveri_flutter_widgets/latest/radio_and_checkbox/radio_and_checkbox-library.html)
 
 
 ## Installation
 
 ```yaml
 # add this line to your dependencies
-weoveri_flutter_widgets: ^0.0.5
+weoveri_flutter_widgets: ^0.0.6
 ```
 
 ```dart
