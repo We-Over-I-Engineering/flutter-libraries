@@ -147,7 +147,9 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
 
             //----------Text Field-------------//
-            WOITextField(),
+            const WOITextField(
+              textFieldState: TextFieldState.completed,
+            ),
           ],
         ),
       ),

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class WOITextFieldStyle {
   TextStyle? labelTextStyle;
-  TextStyle? supportingTextStyle;
-  TextStyle? placeholderTextStyle;
+  TextStyle? hintTextStyle;
   Icon? leftIcon;
   Icon? rightIcon;
   TextStyle? helperTextStyle;
+  InputBorder? textBorders;
 }
