@@ -6,6 +6,7 @@ enum TextFieldState {
   active,
   approved,
   error,
+  disabled,
 }
 
 class WOITextField extends StatefulWidget {
@@ -19,6 +20,12 @@ class WOITextField extends StatefulWidget {
     this.onChange,
     this.onComplete,
     this.textFieldState = TextFieldState.initial,
+    this.borders,
+    this.labelTextStyke,
+    this.textFieldMargin,
+    this.isFilled,
+    this.textInputType,
+    this.textEditingController,
   });
 
   final WOITextFieldStyle? initialState;
@@ -29,6 +36,12 @@ class WOITextField extends StatefulWidget {
   final ValueChanged<String>? onChange;
   final ValueChanged<String>? onComplete;
   final TextFieldState textFieldState;
+  final InputBorder? borders;
+  final TextStyle? labelTextStyke;
+  final EdgeInsets? textFieldMargin;
+  final bool? isFilled;
+  final TextInputType? textInputType;
+  final TextEditingController? textEditingController;
 
   @override
   State<WOITextField> createState() => _WOITextFieldState();
@@ -37,8 +50,47 @@ class WOITextField extends StatefulWidget {
 class _WOITextFieldState extends State<WOITextField> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextField(),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Label Text',
+              style: widget.labelTextStyke ??
+                  const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: widget.textFieldMargin ?? const EdgeInsets.all(0.0),
+          child: TextField(
+            decoration: InputDecoration(
+              border: widget.borders ?? const OutlineInputBorder(),
+              filled: widget.isFilled,
+              hintText: 'hellow there',
+            ),
+            controller: widget.textEditingController,
+            keyboardType: widget.textInputType,
+            enabled: widget.textFieldState != TextFieldState.disabled,
+          ),
+        ),
+        Row(
+          children: [
+            Text(
+              'helperText',
+              style: widget.labelTextStyke ??
+                  const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
