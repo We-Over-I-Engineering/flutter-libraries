@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: buttons # Defining the commands to run in the specific directory since the flutter project is in those libraries
+        working-directory: widgets # Defining the commands to run in the specific directory since the flutter project is in those libraries
 
     steps:
       - uses: actions/checkout@v3 # this command is used to check out (clone) the source code repository into the runner's workspace.
