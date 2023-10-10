@@ -20,6 +20,7 @@ Here are the list of widgets in the package. You can visit the link below to fin
 - [Buttons](https://pub.dev/documentation/weoveri_flutter_widgets/latest/buttons/buttons-library.html)
 - [Switches](https://pub.dev/documentation/weoveri_flutter_widgets/latest/switches/switches-library.html)
 - [Radio/Checkmarks](https://pub.dev/documentation/weoveri_flutter_widgets/latest/radio_and_checkbox/radio_and_checkbox-library.html)
+- [TextField](https://pub.dev/documentation/weoveri_flutter_widgets/latest/text_field/text_field-library.html)
 
 
 ## Installation
