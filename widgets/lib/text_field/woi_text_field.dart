@@ -1,13 +1,102 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:weoveri_flutter_widgets/text_field/text_field_enum.dart';
 import 'package:weoveri_flutter_widgets/text_field/woi_text_field_style.dart';
 
-enum TextFieldState {
-  initial,
-  active,
-  completed,
-  error,
-  disabled,
-}
+/// A text field following material design
+///
+/// Here is the simple version that can be used:
+/// All of the fields in the widget are optional so by default it will only show a textfield
+/// with bit rounded corners without reflecting any information.
+///
+///```dart
+/// WOITextField(
+///   labelText: 'Label Text', // Optional
+///   helperText: 'Helper Text', // Optional
+///   hintText: 'Hint Text', // Optional
+/// ),
+/// ```
+/// Here is how that would look with the above code
+///![Simple version of WOITextField](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/973a9d6f-babc-466d-88b7-8dfcde2a62d4)
+///
+///
+///
+/// In the Widget there would be 5 types of states that can be changed based on the enum [TextFieldState],
+///
+/// The initial state would be set to [TextFieldState.initial].
+///
+/// Now you can change the states and then add specific customization based on the states
+///
+/// Futher there are 2 fields that can be deafult or customizable based on the states
+///
+/// These are [border] and [textStyle]. Now if values are provided in those variables
+/// and they are not reassigned in the states style then the value in these variable will be used everywhere
+/// except for the error state
+///
+/// The [TextFieldState.error] is the only state with already some different values like the `text` and `border color` and
+/// `helper text color` becomes red by default but can be set by providing different values to [errorState] variable
+/// using the [WOITextFieldStyle] style class
+///
+///
+/// Now lets create a complex variation of the text field while utalizing its many fields
+/// So that would look something like below with the following code
+///
+///![WOITextField while using all of its fields](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/e22db117-d329-4de3-a82a-d2780c53378c)
+///
+///```dart
+/// WOITextField(
+///   textFieldState: TextFieldState.initial,
+///   labelText: 'Label Text Here',
+///   hintText: 'Hint Text Here',
+///   hintTextStyle: TextStyle(
+///     color: Colors.white.withOpacity(.6),
+///   ),
+///   onChange: (value) {},
+///   helperText: 'Helper Text Here',
+///   border: const OutlineInputBorder(
+///     borderRadius: BorderRadius.all(
+///       Radius.circular(50),
+///     ),
+///     borderSide: BorderSide(
+///       color: Colors.green,
+///     ),
+///   ),
+///   prefixIcon: GestureDetector(
+///     onTap: () {},
+///     child: const Icon(
+///       Icons.person,
+///       color: Colors.white,
+///     ),
+///   ),
+///   suffixIcon: GestureDetector(
+///     onTap: () {},
+///     child: const Icon(
+///       Icons.remove_red_eye,
+///       color: Colors.white,
+///     ),
+///   ),
+///   textEditingController: TextEditingController(
+///     text: "Hello There",
+///   ),
+///   onTap: () {},
+///   onSubmitted: (value) {},
+///   fillColor: Colors.black,
+///   activeState: WOITextFieldStyle(),
+///   labelTextStyle: const TextStyle(
+///     color: Colors.green,
+///   ),
+///   initialState: WOITextFieldStyle(
+///     textStyle: const TextStyle(
+///       color: Colors.amber,
+///     ),
+///   ),
+///   textStyle: const TextStyle(
+///     color: Colors.white,
+///   ),
+///   textInputType: TextInputType.emailAddress,
+///   // fieldContainerMargin: const EdgeInsets.all(5),
+/// ),
+/// ```
 
 class WOITextField extends StatefulWidget {
   const WOITextField({
@@ -18,60 +107,101 @@ class WOITextField extends StatefulWidget {
     this.errorState,
     this.disabledState,
     this.onChange,
-    this.onComplete,
+    this.onSubmitted,
     this.textFieldState = TextFieldState.initial,
     this.labelTextStyle,
-    this.textFieldMargin,
+    this.fieldContainerMargin,
     this.textInputType,
     this.textEditingController,
     this.fillColor,
     this.suffixIcon,
     this.prefixIcon,
     this.hintTextStyle,
-    this.hintText,
+    this.hintText = '',
+    this.labelText = '',
+    this.helperText = '',
+    this.onTap,
+    this.border,
+    this.textStyle,
+    this.cursorColor,
+    this.inputFormatters,
+    this.showCursor = true,
   });
 
-  // States variables
+  /// initial default state
   final WOITextFieldStyle? initialState;
+
+  /// That's the state that would show when use taps on the text field to add some value
   final WOITextFieldStyle? activeState;
+
+  /// A state that define the completed state
   final WOITextFieldStyle? completedState;
+
+  /// A state that would come up in case of error, it already have some default value which include the colors to red
   final WOITextFieldStyle? errorState;
+
+  /// A state to define the disable state of the text field
   final WOITextFieldStyle? disabledState;
 
-  // onChange call back
+  /// onChange call back that would return current string
   final ValueChanged<String>? onChange;
-  // onComplete call back
-  final ValueChanged<String>? onComplete;
 
-  // State Variable
+  /// onSubmitted call back that triggers after check icon from the keyboard
+  final ValueChanged? onSubmitted;
+
+  /// State enum variable
   final TextFieldState textFieldState;
 
-  // Header label text style
+  /// label text style
   final TextStyle? labelTextStyle;
 
-  // Text field margins
-  final EdgeInsets? textFieldMargin;
+  /// Margins around the text field container that would come between label and helper text
+  final EdgeInsets? fieldContainerMargin;
 
-  // Input Text Type
+  /// Input Text Type
   final TextInputType? textInputType;
 
-  // Controller
+  /// Editing controller for the text field
   final TextEditingController? textEditingController;
 
-  // Fill Color
+  /// Text field fill Color, by deafult it would be transparent
   final Color? fillColor;
 
-  // Suffix Icon
-  final Icon? suffixIcon;
+  /// Suffix Widget
+  final Widget? suffixIcon;
 
-  // Prefix Icon
-  final Icon? prefixIcon;
+  /// Prefix Widget
+  final Widget? prefixIcon;
 
-  // Placeholder Hint Text Style
+  /// Placeholder Hint Text Style
   final TextStyle? hintTextStyle;
 
-  // Placeholder Hint Text Value
-  final String? hintText;
+  /// Placeholder Hint Text
+  final String hintText;
+
+  /// Text for Label as that would show up in the header
+  final String labelText;
+
+  /// The helper text that would show up at the bottom left side
+  final String helperText;
+
+  /// On tap function that will trigger by tapping on textfield
+  final Function? onTap;
+
+  /// The detaul border for all states except error state and can be changed with style class
+  final InputBorder? border;
+
+  /// This is the deafult text style for the text field value but can be changed based on the state
+  final TextStyle? textStyle;
+
+  /// To define the cursor color
+  final Color? cursorColor;
+
+  /// To add custom input formatters
+  final List<TextInputFormatter>? inputFormatters;
+
+  /// to show/hide the cursor in the textfield, will be set to `true` by deafult
+  final bool showCursor;
 
   @override
   State<WOITextField> createState() => _WOITextFieldState();
@@ -86,7 +216,7 @@ class _WOITextFieldState extends State<WOITextField> {
         Row(
           children: [
             Text(
-              'Label Text',
+              widget.labelText,
               style: widget.labelTextStyle ??
                   const TextStyle(
                     fontSize: 14,
@@ -96,25 +226,28 @@ class _WOITextFieldState extends State<WOITextField> {
           ],
         ),
         Padding(
-          padding: widget.textFieldMargin ?? const EdgeInsets.all(0.0),
+          padding: widget.fieldContainerMargin ?? const EdgeInsets.all(0.0),
           child: TextField(
             decoration: InputDecoration(
               enabledBorder: _inputBorder(),
               filled: widget.fillColor != null ? true : false,
               fillColor: widget.fillColor,
               focusedBorder: widget.activeState?.textBorders ??
+                  widget.border ??
                   const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.blue,
                     ),
                   ),
               errorBorder: widget.errorState?.textBorders ??
+                  widget.border ??
                   const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.red,
                     ),
                   ),
               focusedErrorBorder: widget.errorState?.textBorders ??
+                  widget.border ??
                   const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.blue,
@@ -126,13 +259,20 @@ class _WOITextFieldState extends State<WOITextField> {
               hintStyle: widget.hintTextStyle,
             ),
             controller: widget.textEditingController,
+            cursorColor: widget.cursorColor,
+            showCursor: widget.showCursor,
+            inputFormatters: widget.inputFormatters,
             onChanged: (value) {
               widget.onChange!(value);
             },
-            onEditingComplete: () {
-              widget.onComplete!(widget.textEditingController!.text);
+            onSubmitted: (value) {
+              FocusManager.instance.primaryFocus?.unfocus();
+              widget.onSubmitted!(value);
             },
-            style: const TextStyle(),
+            onTap: () {
+              widget.onTap!();
+            },
+            style: _controllerTextStyle(),
             keyboardType: widget.textInputType,
             enabled: widget.textFieldState != TextFieldState.disabled,
           ),
@@ -140,7 +280,7 @@ class _WOITextFieldState extends State<WOITextField> {
         Row(
           children: [
             Text(
-              'helperText',
+              widget.helperText,
               style: _helperTextStyle(),
             ),
           ],
@@ -149,9 +289,41 @@ class _WOITextFieldState extends State<WOITextField> {
     );
   }
 
+  /// This returns the textStyle for the String value of text field based on the current
+  /// state selected or if default [textStyle] is provided
+  TextStyle _controllerTextStyle() {
+    TextStyle textStyle = widget.textStyle ??
+        const TextStyle(
+          // fontSize: 14,
+          color: Colors.black,
+        );
+
+    switch (widget.textFieldState) {
+      case TextFieldState.initial:
+        return widget.initialState?.textStyle ?? textStyle;
+      case TextFieldState.active:
+        return widget.activeState?.textStyle ?? textStyle;
+
+      case TextFieldState.completed:
+        return widget.completedState?.textStyle ?? textStyle;
+
+      case TextFieldState.disabled:
+        return widget.disabledState?.textStyle ?? textStyle;
+      case TextFieldState.error:
+        return widget.errorState?.textStyle ??
+            const TextStyle(
+              color: Colors.red,
+            );
+
+      default:
+        return textStyle;
+    }
+  }
+
+  /// This returns the textStyle for the helper text string based on the current
+  /// state selected default would be set to [Colors.black]
   TextStyle _helperTextStyle() {
     TextStyle textStyle = const TextStyle(
-      fontSize: 14,
       color: Colors.black,
     );
 
@@ -167,20 +339,26 @@ class _WOITextFieldState extends State<WOITextField> {
       case TextFieldState.disabled:
         return widget.disabledState?.helperTextStyle ?? textStyle;
       case TextFieldState.error:
-        return widget.errorState?.helperTextStyle ?? textStyle;
+        return widget.errorState?.helperTextStyle ??
+            const TextStyle(
+              color: Colors.red,
+            );
 
       default:
         return textStyle;
     }
   }
 
+  /// This returns the border for the text field based on the current
+  /// state selected or if default [border] is provided
   InputBorder _inputBorder() {
-    OutlineInputBorder textBorder = const OutlineInputBorder();
+    InputBorder textBorder = widget.border ?? const OutlineInputBorder();
     if (widget.textFieldState == TextFieldState.initial) {
       return widget.initialState?.textBorders ?? textBorder;
     }
     if (widget.textFieldState == TextFieldState.active) {
       return widget.activeState?.textBorders ??
+          widget.border ??
           const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.blue,
@@ -189,6 +367,7 @@ class _WOITextFieldState extends State<WOITextField> {
     }
     if (widget.textFieldState == TextFieldState.completed) {
       return widget.completedState?.textBorders ??
+          widget.border ??
           const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.black,
@@ -197,6 +376,7 @@ class _WOITextFieldState extends State<WOITextField> {
     }
     if (widget.textFieldState == TextFieldState.disabled) {
       return widget.disabledState?.textBorders ??
+          widget.border ??
           const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.grey,
@@ -204,11 +384,12 @@ class _WOITextFieldState extends State<WOITextField> {
           );
     }
     if (widget.textFieldState == TextFieldState.error) {
-      return const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.red,
-        ),
-      );
+      return widget.border ??
+          const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.red,
+            ),
+          );
     }
     return widget.initialState?.textBorders ?? textBorder;
   }

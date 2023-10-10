@@ -10,7 +10,9 @@ The "We Over I Flutter Widgets" package is a comprehensive library of everyday-u
 - [Widgets](#widgets)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Additional information](#additional-information)
+- [Contact](#contact)
+- [Contributors](#contributors)
+- [Licence](#licence)
 
 
 ## Widgets

@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               ],
             ),
 
-            //----------Radio Buttons-------------//
+            //----------CheckBox-------------//
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -147,8 +147,18 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
 
             //----------Text Field-------------//
-            const WOITextField(
-              textFieldState: TextFieldState.completed,
+            const Padding(
+              padding: EdgeInsets.all(20),
+              child: WOITextField(
+                labelText: 'Label Text',
+                helperText: 'Helper Text',
+                hintText: 'Hint Text',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
