@@ -16,6 +16,7 @@ import 'package:weoveri_flutter_widgets/text_field/woi_text_field_style.dart';
 ///   hintText: 'Hint Text', // Optional
 /// ),
 /// ```
+///
 /// Here is how that would look with the above code
 ///![Simple version of WOITextField](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/973a9d6f-babc-466d-88b7-8dfcde2a62d4)
 ///
@@ -126,6 +127,7 @@ class WOITextField extends StatefulWidget {
     this.cursorColor,
     this.inputFormatters,
     this.showCursor = true,
+    this.boxShadow,
   });
 
   /// initial default state
@@ -203,6 +205,9 @@ class WOITextField extends StatefulWidget {
   /// to show/hide the cursor in the textfield, will be set to `true` by deafult
   final bool showCursor;
 
+  /// Shadow for the Text field, that will only be applied to the text field inter container
+  final List<BoxShadow>? boxShadow;
+
   @override
   State<WOITextField> createState() => _WOITextFieldState();
 }
@@ -227,54 +232,59 @@ class _WOITextFieldState extends State<WOITextField> {
         ),
         Padding(
           padding: widget.fieldContainerMargin ?? const EdgeInsets.all(0.0),
-          child: TextField(
-            decoration: InputDecoration(
-              enabledBorder: _inputBorder(),
-              filled: widget.fillColor != null ? true : false,
-              fillColor: widget.fillColor,
-              focusedBorder: widget.activeState?.textBorders ??
-                  widget.border ??
-                  const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-              errorBorder: widget.errorState?.textBorders ??
-                  widget.border ??
-                  const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red,
-                    ),
-                  ),
-              focusedErrorBorder: widget.errorState?.textBorders ??
-                  widget.border ??
-                  const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-              suffixIcon: widget.suffixIcon,
-              prefixIcon: widget.prefixIcon,
-              hintText: widget.hintText,
-              hintStyle: widget.hintTextStyle,
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: widget.boxShadow,
             ),
-            controller: widget.textEditingController,
-            cursorColor: widget.cursorColor,
-            showCursor: widget.showCursor,
-            inputFormatters: widget.inputFormatters,
-            onChanged: (value) {
-              widget.onChange!(value);
-            },
-            onSubmitted: (value) {
-              FocusManager.instance.primaryFocus?.unfocus();
-              widget.onSubmitted!(value);
-            },
-            onTap: () {
-              widget.onTap!();
-            },
-            style: _controllerTextStyle(),
-            keyboardType: widget.textInputType,
-            enabled: widget.textFieldState != TextFieldState.disabled,
+            child: TextField(
+              decoration: InputDecoration(
+                enabledBorder: _inputBorder(),
+                filled: widget.fillColor != null ? true : false,
+                fillColor: widget.fillColor,
+                focusedBorder: widget.activeState?.textBorders ??
+                    widget.border ??
+                    const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                errorBorder: widget.errorState?.textBorders ??
+                    widget.border ??
+                    const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                      ),
+                    ),
+                focusedErrorBorder: widget.errorState?.textBorders ??
+                    widget.border ??
+                    const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                suffixIcon: widget.suffixIcon,
+                prefixIcon: widget.prefixIcon,
+                hintText: widget.hintText,
+                hintStyle: widget.hintTextStyle,
+              ),
+              controller: widget.textEditingController,
+              cursorColor: widget.cursorColor,
+              showCursor: widget.showCursor,
+              inputFormatters: widget.inputFormatters,
+              onChanged: (value) {
+                widget.onChange!(value);
+              },
+              onSubmitted: (value) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                widget.onSubmitted!(value);
+              },
+              onTap: () {
+                widget.onTap!();
+              },
+              style: _controllerTextStyle(),
+              keyboardType: widget.textInputType,
+              enabled: widget.textFieldState != TextFieldState.disabled,
+            ),
           ),
         ),
         Row(

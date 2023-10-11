@@ -153,11 +153,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                 labelText: 'Label Text',
                 helperText: 'Helper Text',
                 hintText: 'Hint Text',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
               ),
             ),
           ],
