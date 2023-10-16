@@ -17,11 +17,13 @@ import 'package:weoveri_flutter_widgets/text_field/woi_text_field_style.dart';
 /// ),
 /// ```
 ///
+///---
 /// Here is how that would look with the above code
 ///![Simple version of WOITextField](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/973a9d6f-babc-466d-88b7-8dfcde2a62d4)
 ///
 ///
 ///
+///---
 /// In the Widget there would be 5 types of states that can be changed based on the enum [TextFieldState],
 ///
 /// The initial state would be set to [TextFieldState.initial].
@@ -41,6 +43,8 @@ import 'package:weoveri_flutter_widgets/text_field/woi_text_field_style.dart';
 ///
 /// Now lets create a complex variation of the text field while utalizing its many fields
 /// So that would look something like below with the following code
+///
+///---
 ///
 ///![WOITextField while using all of its fields](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/e22db117-d329-4de3-a82a-d2780c53378c)
 ///

@@ -14,6 +14,10 @@ import 'package:weoveri_flutter_widgets/switches/switch_style_model.dart';
 /// )
 /// ```
 ///
+/// ![Selected State](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/b5b1756d-d02a-491b-81e6-3e2e9cba7ba9)
+///
+/// ![Un selected State](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/e70f259e-ebbd-4930-bba8-5c3c46292c54)
+///
 /// The `value` and `onChanged` are required fields
 /// `onChanged` field will return the data when ever the value is changed with the updated value on what should be the new value after the tap action
 ///
