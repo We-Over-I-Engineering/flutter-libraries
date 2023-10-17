@@ -9,17 +9,35 @@ import 'package:weoveri_flutter_widgets/text_field/woi_text_field_style.dart';
 /// All of the fields in the widget are optional so by default it will only show a textfield
 /// with bit rounded corners without reflecting any information.
 ///
+///
 ///```dart
-/// WOITextField(
-///   labelText: 'Label Text', // Optional
-///   helperText: 'Helper Text', // Optional
-///   hintText: 'Hint Text', // Optional
+///WOITextField(
+///   border: OutlineInputBorder(
+///     borderSide: BorderSide(
+///       color: Color(0xff007EDA),
+///     ),
+///     borderRadius: BorderRadius.all(
+///       Radius.circular(6),
+///     ),
+///   ),
+///   labelText: 'Email Address',
+///   helperText: 'Make sure it is valid',
+///   hintText: 'Placeholder Text',
+///   prefixIcon: Icon(
+///     Icons.email_outlined,
+///     color: Color(0xff007EDA),
+///   ),
+///   hintTextStyle: TextStyle(
+///     color: Color(0xffB6A8A8),
+///     fontSize: 18,
+///   ),
 /// ),
 /// ```
 ///
 ///---
 /// Here is how that would look with the above code
-///![Simple version of WOITextField](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/973a9d6f-babc-466d-88b7-8dfcde2a62d4)
+///
+///![Simple version of WOITextField](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/d22f4d57-b3f6-4df1-a000-9154ca54be0a)
 ///
 ///
 ///
@@ -46,60 +64,36 @@ import 'package:weoveri_flutter_widgets/text_field/woi_text_field_style.dart';
 ///
 ///---
 ///
-///![WOITextField while using all of its fields](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/e22db117-d329-4de3-a82a-d2780c53378c)
+///![Input Field With Error State](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/288abeb6-807d-4c99-9882-3c5bb7f3340b)
 ///
+///---
 ///```dart
 /// WOITextField(
-///   textFieldState: TextFieldState.initial,
-///   labelText: 'Label Text Here',
-///   hintText: 'Hint Text Here',
-///   hintTextStyle: TextStyle(
-///     color: Colors.white.withOpacity(.6),
-///   ),
-///   onChange: (value) {},
-///   helperText: 'Helper Text Here',
-///   border: const OutlineInputBorder(
-///     borderRadius: BorderRadius.all(
-///       Radius.circular(50),
+///   labelText: 'Email Address',
+///   helperText: 'Invalid email',
+///   textFieldState: TextFieldState.error,
+///   errorState: WOITextFieldStyle(
+///     helperTextStyle: const TextStyle(
+///       color: Color(0xffCD3843),
 ///     ),
-///     borderSide: BorderSide(
-///       color: Colors.green,
+///     textBorders: const OutlineInputBorder(
+///       borderSide: BorderSide(
+///         color: Color(0xffCD3843),
+///       ),
 ///     ),
-///   ),
-///   prefixIcon: GestureDetector(
-///     onTap: () {},
-///     child: const Icon(
-///       Icons.person,
-///       color: Colors.white,
-///     ),
-///   ),
-///   suffixIcon: GestureDetector(
-///     onTap: () {},
-///     child: const Icon(
-///       Icons.remove_red_eye,
-///       color: Colors.white,
-///     ),
-///   ),
-///   textEditingController: TextEditingController(
-///     text: "Hello There",
-///   ),
-///   onTap: () {},
-///   onSubmitted: (value) {},
-///   fillColor: Colors.black,
-///   activeState: WOITextFieldStyle(),
-///   labelTextStyle: const TextStyle(
-///     color: Colors.green,
-///   ),
-///   initialState: WOITextFieldStyle(
 ///     textStyle: const TextStyle(
-///       color: Colors.amber,
+///       color: Color(0xffCD3843),
+///       fontSize: 18,
 ///     ),
 ///   ),
-///   textStyle: const TextStyle(
-///     color: Colors.white,
+///   prefixIcon: const Icon(
+///     Icons.email_outlined,
+///     color: Color(0xffCD3843),
 ///   ),
-///   textInputType: TextInputType.emailAddress,
-///   // fieldContainerMargin: const EdgeInsets.all(5),
+///   suffixIcon: const Icon(
+///     Icons.cancel,
+///     color: Color(0xffCD3843),
+///   ),
 /// ),
 /// ```
 
@@ -399,6 +393,7 @@ class _WOITextFieldState extends State<WOITextField> {
     }
     if (widget.textFieldState == TextFieldState.error) {
       return widget.border ??
+          widget.errorState?.textBorders ??
           const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.red,

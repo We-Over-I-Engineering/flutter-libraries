@@ -14,6 +14,8 @@ import 'button_enums.dart';
 ///   onPressed: () {},
 /// )
 /// ```
+///
+/// ![Parallelogram Button](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/8f62f605-3148-4bae-a752-c5ca99355bce)
 
 class WOIParallalogramButton extends StatelessWidget {
   const WOIParallalogramButton({

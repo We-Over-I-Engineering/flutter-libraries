@@ -13,6 +13,7 @@ import 'package:weoveri_flutter_widgets/buttons/button_style.dart';
 ///   onTap: () {},
 /// )
 /// ```
+/// ![iconButton](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/86446612-0953-4ce5-b4ec-a2fa1816ada7)
 ///
 /// You can change the icon color and other properties accordingly
 class WOIIconButton extends StatelessWidget {
