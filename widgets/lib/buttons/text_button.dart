@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weoveri_flutter_widgets/buttons/button_style.dart';
-import 'button_enums.dart';
 
 /// A simple text button that can be used as a capsule or rectangular button
 ///
@@ -13,6 +12,8 @@ import 'button_enums.dart';
 ///   onTap: (){},
 /// )
 /// ```
+///
+/// ![Text Button](https://github.com/We-Over-I-Engineering/flutter-libraries/assets/85175211/022a3954-94c9-40fb-b226-68d279528488)
 
 class WOITextButton extends StatelessWidget {
   /// The all in one button
@@ -66,15 +67,17 @@ class WOITextButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        (buttonStyle?.widgetLocation ?? WidgetLocation.start) ==
+        /* (buttonStyle?.widgetLocation ?? WidgetLocation.start) ==
                 WidgetLocation.start
-            ? _prePostWidgets()
-            : Container(),
+            ?  */
+        _prefixWidgets(),
+        /* : Container(), */
         _textContainer(),
-        (buttonStyle?.widgetLocation ?? WidgetLocation.start) ==
+        /* (buttonStyle?.widgetLocation ?? WidgetLocation.start) ==
                 WidgetLocation.end
-            ? _prePostWidgets()
-            : Container(),
+            ?  */
+        _sufixWidgets()
+        /* : Container(), */
       ],
     );
   }
@@ -110,12 +113,19 @@ class WOITextButton extends StatelessWidget {
     );
   }
 
-  Widget _prePostWidgets() {
-    if (buttonStyle?.sideWidget != null) {
+  Widget _prefixWidgets() {
+    if (buttonStyle?.prefixWidget != null) {
       return SizedBox(
-        height: buttonStyle?.sideWidgetSize,
-        width: buttonStyle?.sideWidgetSize,
-        child: buttonStyle!.sideWidget!,
+        child: buttonStyle!.prefixWidget!,
+      );
+    }
+    return Container();
+  }
+
+  Widget _sufixWidgets() {
+    if (buttonStyle?.sufixWidget != null) {
+      return SizedBox(
+        child: buttonStyle!.sufixWidget!,
       );
     }
     return Container();

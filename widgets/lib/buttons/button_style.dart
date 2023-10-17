@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weoveri_flutter_widgets/buttons/button_enums.dart';
 
 /// This style class is used to style the [WOITextButton]
 /// This has all of the properties to change the appearance of the button
@@ -10,15 +9,11 @@ class WOIButtonStyle {
   /// To provide with the custom border instance
   Border? border;
 
-  /// This is used to provide the side widgets around the text
-  Widget? sideWidget;
+  /// This is used to provide the prefix widget before the text
+  Widget? prefixWidget;
 
-  /// To provide specific size for the widgets on the sides
-  double? sideWidgetSize;
-
-  /// To specify the location for the side widget, for now its only on the left and right
-  /// which can specified by [WidgetLocation.end] or [WidgetLocation.start]
-  WidgetLocation widgetLocation;
+  /// This is used to provide the sufix widget after the text
+  Widget? sufixWidget;
 
   /// To speficy a color of the button
   Color? backgroundColor;
@@ -36,9 +31,8 @@ class WOIButtonStyle {
   WOIButtonStyle({
     this.borderRadius,
     this.border,
-    this.sideWidget,
-    this.sideWidgetSize,
-    this.widgetLocation = WidgetLocation.start,
+    this.prefixWidget,
+    this.sufixWidget,
     this.backgroundColor,
     this.boxShadow,
     this.gradient,
