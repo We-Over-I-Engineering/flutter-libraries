@@ -61,6 +61,7 @@ class WOIRadioButton extends StatelessWidget {
     this.size = 25,
     this.innerPadding,
     this.duration,
+    this.backgroundColor,
   });
 
   /// This is a required field which would be used to differential between states
@@ -88,6 +89,9 @@ class WOIRadioButton extends StatelessWidget {
   /// This defines the duration for the animation duration
   final Duration? duration;
 
+  /// This defines the background Color
+  final Color? backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -102,6 +106,7 @@ class WOIRadioButton extends StatelessWidget {
         height: size,
         width: size,
         decoration: BoxDecoration(
+          color: backgroundColor ?? Colors.white,
           border: (isSelected ? selectedBorder : border) ?? Border.all(),
           borderRadius: BorderRadius.circular(100),
         ),
