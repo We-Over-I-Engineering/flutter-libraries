@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ),
         ),
-        //----------Parallalogram Button-------------//
+        //----------Parallalogram Button-------------
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -109,7 +109,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
           ],
         ),
 
-        //----------Icon Button-------------//
+        //----------Icon Button-------------
         WOIIconButton(
           size: 45,
           borderRadius: BorderRadius.circular(100),
