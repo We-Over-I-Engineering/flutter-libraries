@@ -19,14 +19,14 @@ import 'package:flutter/material.dart';
 ///
 ///
 ///
-/// Furthure if you want to explore the full extent of the widget then we have the selected and non selected states for the radio button
-/// so to customize the radio button in its selected state there would be variables
+/// Further if you want to explore the full extent of the widget then we have the selected and non-selected states for the radio button
+/// So to customize the radio button in its selected state there would be variables
 /// starting from 'selected' or would have 'selected' in them
 ///
 ///
 ///
 ///
-/// Here is the implementation with all utalization of its customization
+/// Here is the implementation with all utilization of its customization
 /// ```dart
 /// WOIRadioButton(
 ///   isSelected: radioValue,
@@ -61,9 +61,10 @@ class WOIRadioButton extends StatelessWidget {
     this.size = 25,
     this.innerPadding,
     this.duration,
+    this.backgroundColor,
   });
 
-  /// This is a required field which would be used to differential between states
+  /// This is a required field which would be used to differentiate between active and inactive states
   final bool isSelected;
 
   /// This is the border for state when radio button is not selected
@@ -72,7 +73,7 @@ class WOIRadioButton extends StatelessWidget {
   /// This is variable to change border for selected state
   final Border? selectedBorder;
 
-  /// This is variable to change inner Color for selected state. The inner filled cirle
+  /// This is variable to change inner Color for selected state. The inner filled circle
   final Color? selectedFillColor;
 
   /// This variable will return the value when you tap on the button
@@ -88,6 +89,9 @@ class WOIRadioButton extends StatelessWidget {
   /// This defines the duration for the animation duration
   final Duration? duration;
 
+  /// This defines the background Color
+  final Color? backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -102,6 +106,7 @@ class WOIRadioButton extends StatelessWidget {
         height: size,
         width: size,
         decoration: BoxDecoration(
+          color: backgroundColor ?? Colors.white,
           border: (isSelected ? selectedBorder : border) ?? Border.all(),
           borderRadius: BorderRadius.circular(100),
         ),
