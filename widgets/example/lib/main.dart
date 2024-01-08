@@ -158,7 +158,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ],
         ),
-
         //----------Radio Buttons-------------//
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
