@@ -204,8 +204,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   /// Combination of complex widgets under a complex Tab
   Widget complexWidgets() {
-    int finalValue = 9;
-    int curentValue = 5;
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -236,18 +234,11 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               ),
             ),
           ),
-          /* //----------Steppers-------------//
-          Column(
-            children: [
-              stepperWidget(),
-              stepperButtons(),
-            ],
-          ), */
           //----------TextProgressBar----------//
           SizedBox(
             child: WOITextBar(
               progressValue: 50,
-              tiltValue: 0,
+              tiltValue: -5,
               borderRadius: 30,
               textStyle: const TextStyle(
                 fontSize: 150,
@@ -279,58 +270,25 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ),
           //-----------CurvedBar------------//
+          curvedBar(),
+          //--------CountDownTimerVariation1---------//
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: WOICurvedBar(
-              finalValue: finalValue,
-              currentValue: curentValue,
-              arcBorders: true,
-              arcLength: 60,
-              arcDirection: ArcDirection.up,
-              rotateCenter: true,
-              padding: const EdgeInsets.all(20),
-              size: 220,
-              backgroundBorderRadius: 50,
-              barColor: Colors.grey[300]!,
-              fillColor: Colors.blue,
-              borderColor: Colors.black,
-              backgroundColor: Colors.grey.shade300,
-              center: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          curentValue.toString(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 70),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text(
-                            '/',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w200, fontSize: 80),
-                          ),
-                        ),
-                        Text(
-                          finalValue.toString(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 70),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Text(
-                    'Check-Ins',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
+            padding: const EdgeInsets.all(20),
+            child: WOICountdowns(
+              timeInSeconds: 10,
+              timerSize: 200,
+              timerWidth: 20,
+              timerBackgroundColor: Colors.amber[100]!,
+              timerFillColor: Colors.amber,
+              cooldownTimerBoxDecoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(200),
               ),
             ),
+          ),
+          //--------CountdownTimerVariation2---------//
+          const WOICountdownTimer(
+            isHoursNeeded: true,
           ),
         ],
       ),
@@ -379,6 +337,124 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               'Step3',
             ],
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: WOIStepper.iconText(
+            activeStateIndex: currentStepperIndex,
+            activeSeparatorWidget: Container(
+              height: 2,
+              color: Colors.black,
+            ),
+            textItemsList: const [
+              'Step1',
+              'Step2',
+              'Step3',
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Buttons to update the value for the stepper state
+  Widget stepperButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 15,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: WOITextButton(
+              text: "Previous",
+              heigth: 50,
+              onTap: () {
+                if (currentStepperIndex < 0) {
+                  return;
+                }
+                currentStepperIndex--;
+                setState(() {});
+              },
+            ),
+          ),
+          Container(
+            width: 20,
+          ),
+          Expanded(
+            child: WOITextButton(
+              text: "Next",
+              heigth: 50,
+              onTap: () {
+                if (currentStepperIndex >= 3) {
+                  return;
+                }
+                setState(() {
+                  currentStepperIndex++;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Curved bar
+  Widget curvedBar() {
+    int finalValue = 9;
+    int curentValue = 5;
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: WOICurvedBar(
+        finalValue: finalValue,
+        currentValue: curentValue,
+        arcBorders: true,
+        arcLength: 0,
+        arcDirection: ArcDirection.up,
+        rotateCenter: true,
+        padding: const EdgeInsets.all(20),
+        size: 220,
+        backgroundBorderRadius: 50,
+        barColor: Colors.grey[300]!,
+        fillColor: Colors.blue,
+        borderColor: Colors.black,
+        backgroundColor: Colors.grey.shade300,
+        center: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    curentValue.toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 70),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      '/',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w200, fontSize: 80),
+                    ),
+                  ),
+                  Text(
+                    finalValue.toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 70),
+                  ),
+                ],
+              ),
+            ),
+            const Text(
+              'Check-Ins',
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.all(10),

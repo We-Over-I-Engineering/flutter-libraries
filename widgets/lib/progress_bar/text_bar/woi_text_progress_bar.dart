@@ -82,6 +82,8 @@ class _WOITextBarState extends State<WOITextBar> {
     }
     if (widget.progressValue == 0 || widget.progressValue == 100) {
       isTilt = false;
+    } else {
+      isTilt = true;
     }
     final textPainter = TextPainter(
       text: TextSpan(
@@ -99,15 +101,18 @@ class _WOITextBarState extends State<WOITextBar> {
             color: widget.textColor,
             borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
-          child: CustomPaint(
-            size: Size(
-              textPainter.size.width,
-              textPainter.size.height - (textPainter.size.height * .35),
-            ),
-            painter: FillTextPainter(
-              fillColor: widget.fillColor,
-              progressValue: widget.progressValue / 100,
-              tiltValue: isTilt ? widget.tiltValue : 0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            child: CustomPaint(
+              size: Size(
+                textPainter.size.width,
+                textPainter.size.height - (textPainter.size.height * .35),
+              ),
+              painter: TextFillPainter(
+                fillColor: widget.fillColor,
+                progressValue: widget.progressValue / 100,
+                tiltValue: isTilt ? widget.tiltValue : 0,
+              ),
             ),
           ),
         ),
@@ -122,8 +127,11 @@ class _WOITextBarState extends State<WOITextBar> {
               stops: const [0.0],
             ).createShader(bounds),
             child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                color: Colors.white.withOpacity(0.01),
+              ),
               height: textPainter.size.height,
-              color: Colors.white.withOpacity(0.01),
               child: Text(
                 textValue,
                 textAlign: TextAlign.center,

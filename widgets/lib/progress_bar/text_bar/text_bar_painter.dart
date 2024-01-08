@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 /// Custom painter that handles fill of the progress bar.
-class FillTextPainter extends CustomPainter {
+class TextFillPainter extends CustomPainter {
   final Color fillColor;
   final double progressValue;
   final int tiltValue;
 
-  FillTextPainter({
+  TextFillPainter({
     required this.fillColor,
     required this.progressValue,
     this.tiltValue = 0,

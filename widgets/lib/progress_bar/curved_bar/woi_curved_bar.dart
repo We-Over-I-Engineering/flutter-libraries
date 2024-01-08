@@ -63,7 +63,7 @@ enum ArcDirection {
 /// ),
 /// ```
 ///
-/// The [WOISectionBar] takes final value(completion value) and current value(the progress value) as required parameters.
+/// The [WOICurvedBar] takes final value(completion value) and current value(the progress value) as required parameters.
 
 class WOICurvedBar extends StatefulWidget {
   /// The [WOICurvedBar] is an arc shape progress bar
