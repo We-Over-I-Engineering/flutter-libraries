@@ -402,7 +402,8 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
                             style: TextStyle(
                               color: widget.changeSeparatorColor
                                   ? widget.selectedTimerValueColor
-                                  : Colors.white,
+                                  : Colors
+                                      .white, // If user sets changeSeparatorColor value to true its color will change according to the active timer value color that the user gives otherwise it will be white.
                               fontSize: widget.timerFontSize,
                             ),
                           ),
@@ -415,7 +416,7 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
                           controller: secondsController,
                           physics: timerStarted
                               ? const NeverScrollableScrollPhysics()
-                              : const FixedExtentScrollPhysics(),
+                              : const FixedExtentScrollPhysics(), // Stops scroll when the timer has started.
                           onSelectedItemChanged: (value) {
                             selectedSeconds = value;
                             setState(() {});
@@ -427,14 +428,16 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
                               (index) => Text(
                                 secondsAndMinutes[index].toString().length == 1
                                     ? '0${secondsAndMinutes[index].toString()}'
-                                    : secondsAndMinutes[index].toString(),
+                                    : secondsAndMinutes[index]
+                                        .toString(), // Adds a 0 before a single digit int.
                                 style: TextStyle(
                                   fontSize: widget.timerFontSize,
                                   fontWeight: FontWeight.w500,
                                   color: secondsAndMinutes[index] ==
                                           selectedSeconds
                                       ? widget.selectedTimerValueColor
-                                      : widget.unselectedTimerValueColor,
+                                      : widget
+                                          .unselectedTimerValueColor, // Different text color based on selected and unselected values.
                                 ),
                               ),
                             ),
@@ -450,6 +453,7 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
               onTap: startButtonPressed
                   ? null
                   : () {
+<<<<<<< Updated upstream
                       if (widget.onStart != null) {
                         widget.onStart!();
                       }
@@ -530,6 +534,9 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
                           },
                         );
                       }
+=======
+                      startButtonHandler();
+>>>>>>> Stashed changes
                     },
               child: Container(
                 height: widget.startButtonHeight,
@@ -547,6 +554,7 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
               children: [
                 GestureDetector(
                   onTap: () {
+<<<<<<< Updated upstream
                     if (widget.onPause != null) {
                       widget.onPause!(totalTimeInSeconds);
                     }
@@ -626,6 +634,9 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
                       pauseButtonPressed = true;
                       setState(() {});
                     }
+=======
+                    pauseButtonHandler();
+>>>>>>> Stashed changes
                   },
                   child: Container(
                     height: widget.pauseButtonHeight,
@@ -642,6 +653,7 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
                     if (widget.onStop != null) {
                       widget.onStop!();
                     }
+                    // Cancel timer and change state of timer and variables to their initial state.
                     timer.cancel();
                     totalTimeInSeconds = 0;
                     hoursController.jumpTo(0);
@@ -665,5 +677,152 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
         ],
       ),
     );
+  }
+
+  void startButtonHandler() {
+    if (widget.onStart != null) {
+      widget.onStart!();
+    }
+    double scrollPositionHandler = widget.scrollableTileSize;
+    if (selectedSeconds != 0 || selectedMinutes != 0 || selectedHours != 0) {
+      startButtonPressed = true;
+      timerStarted = true;
+      if (selectedHours != 0) {
+        totalTimeInSeconds += (selectedHours * 360);
+      }
+      if (selectedMinutes != 0) {
+        totalTimeInSeconds += (selectedMinutes * 60);
+      }
+      totalTimeInSeconds += selectedSeconds;
+      int secondsEndTime = 0;
+      int minutesEndTime = 0;
+      if (minutesController.selectedItem != 0) {
+        secondsEndTime += 60;
+        secondsEndTime *= minutesController.selectedItem;
+      }
+      if (hoursController.selectedItem != 0) {
+        minutesEndTime += 60;
+        minutesEndTime *= hoursController.selectedItem;
+      }
+      timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (timer) {
+          if (hoursController.selectedItem == 0 &&
+              minutesController.selectedItem == -minutesEndTime &&
+              secondsController.selectedItem == -secondsEndTime) {
+            timer.cancel();
+            totalTimeInSeconds = 0;
+            startButtonPressed = false;
+            timerStarted = false;
+            setState(() {});
+            return;
+          }
+          // Seconds timer will keep decreasing unless all the timer values are 0
+          secondsController.selectedItem - 1;
+          secondsController.animateTo(
+            (secondsController.position.pixels - scrollPositionHandler),
+            duration: const Duration(milliseconds: 500),
+            curve: Easing.linear,
+          );
+          if (selectedSeconds == 0 && selectedMinutes != 0) {
+            // Minutes will decrease when the seconds value is 0 and minutes have been set to a non zero value.
+            minutesController.selectedItem - 1;
+            minutesController.animateTo(
+              (minutesController.position.pixels - scrollPositionHandler),
+              duration: const Duration(milliseconds: 500),
+              curve: Easing.linear,
+            );
+          }
+          if (selectedMinutes == 0 &&
+              selectedHours != 0 &&
+              selectedSeconds == 0 &&
+              minutesController.selectedItem != minutesEndTime) {
+            // Hours and minutes will decrease when minutes and seconds value is 0 and the current minute value in the scroll controller is not equal to the end scroll value for minutes.
+            hoursController.selectedItem - 1;
+            hoursController.animateTo(
+              (hoursController.position.pixels - scrollPositionHandler),
+              duration: const Duration(milliseconds: 500),
+              curve: Easing.linear,
+            );
+            minutesController.animateTo(
+              minutesController.position.pixels - scrollPositionHandler,
+              duration: const Duration(milliseconds: 500),
+              curve: Easing.linear,
+            );
+          }
+          setState(() {});
+        },
+      );
+    }
+  }
+
+  void pauseButtonHandler() {
+    if (widget.onPause != null) {
+      widget.onPause!(totalTimeInSeconds);
+    }
+    double scrollPositionHandler = widget.scrollableTileSize;
+    int secondsEndTime = 0;
+    int minutesEndTime = 0;
+    if (pauseButtonPressed) {
+      pauseButtonPressed = false;
+      setState(() {});
+      timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (timer) {
+          if (pauseButtonPressed) {
+            timer.cancel();
+            return;
+          }
+          if (hoursController.selectedItem == 0 &&
+              minutesController.selectedItem == -minutesEndTime &&
+              secondsController.selectedItem == -secondsEndTime) {
+            timer.cancel();
+            totalTimeInSeconds = 0;
+            startButtonPressed = false;
+            timerStarted = false;
+            setState(() {});
+            return;
+          }
+          // Seconds timer will keep decreasing unless all the timer values are 0
+          secondsController.selectedItem - 1;
+          secondsController.animateTo(
+            (secondsController.position.pixels - scrollPositionHandler),
+            duration: const Duration(milliseconds: 500),
+            curve: Easing.linear,
+          );
+          if (selectedSeconds == 0 && selectedMinutes != 0) {
+            // Minutes will decrease when the seconds value is 0 and minutes have been set to a non zero value.
+            minutesController.selectedItem - 1;
+            minutesController.animateTo(
+              (minutesController.position.pixels - scrollPositionHandler),
+              duration: const Duration(milliseconds: 500),
+              curve: Easing.linear,
+            );
+          }
+          if (selectedMinutes == 0 &&
+              selectedHours != 0 &&
+              selectedSeconds == 0 &&
+              minutesController.selectedItem != minutesEndTime) {
+            // Hours and minutes will decrease when minutes and seconds value is 0 and the current minute value in the scroll controller is not equal to the end scroll value for minutes.
+            hoursController.selectedItem - 1;
+            hoursController.animateTo(
+              (hoursController.position.pixels - scrollPositionHandler),
+              duration: const Duration(milliseconds: 500),
+              curve: Easing.linear,
+            );
+            minutesController.animateTo(
+              minutesController.position.pixels - scrollPositionHandler,
+              duration: const Duration(milliseconds: 500),
+              curve: Easing.linear,
+            );
+          }
+          setState(() {});
+        },
+      );
+    } else {
+      timer.cancel();
+      pauseButtonPressed = true;
+      setState(() {});
+    }
   }
 }
