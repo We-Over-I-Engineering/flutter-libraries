@@ -158,7 +158,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ],
         ),
-
         //----------Radio Buttons-------------//
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -461,6 +460,65 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ],
         ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: WOIStepper.iconText(
+            activeStateIndex: currentStepperIndex,
+            activeSeparatorWidget: Container(
+              height: 2,
+              color: Colors.black,
+            ),
+            textItemsList: const [
+              'Step1',
+              'Step2',
+              'Step3',
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Buttons to update the value for the stepper state
+  Widget stepperButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 15,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: WOITextButton(
+              text: "Previous",
+              heigth: 50,
+              onTap: () {
+                if (currentStepperIndex < 0) {
+                  return;
+                }
+                currentStepperIndex--;
+                setState(() {});
+              },
+            ),
+          ),
+          Container(
+            width: 20,
+          ),
+          Expanded(
+            child: WOITextButton(
+              text: "Next",
+              heigth: 50,
+              onTap: () {
+                if (currentStepperIndex >= 3) {
+                  return;
+                }
+                setState(() {
+                  currentStepperIndex++;
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
