@@ -14,29 +14,19 @@ class DataPointPainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
-    int index = 0;
-
     Path path = Path();
-    path.moveTo(size.width - (((size.width / 7) * 7) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
-    index++;
-    path.lineTo(size.width - (((size.width / 7) * 6) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
-    index++;
-    path.lineTo(size.width - (((size.width / 7) * 5) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
-    index++;
-    path.lineTo(size.width - (((size.width / 7) * 4) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
-    index++;
-    path.lineTo(size.width - (((size.width / 7) * 3) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
-    index++;
-    path.lineTo(size.width - (((size.width / 7) * 2) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
-    index++;
-    path.lineTo(size.width - (((size.width / 7) * 1) - (size.width / 14)),
-        size.height - (size.height / 150) * dataPoints[index]);
+    path.moveTo(
+        size.width -
+            (((size.width / dataPoints.length) * dataPoints.length) -
+                (size.width / (dataPoints.length * 2))),
+        (size.height - (size.height / 150) * dataPoints[0]) - 10);
+    for (int i = 1; i < dataPoints.length; i++) {
+      path.lineTo(
+          size.width -
+              (((size.width / dataPoints.length) * (dataPoints.length - i)) -
+                  (size.width / (dataPoints.length * 2))),
+          (size.height - (size.height / 150) * dataPoints[i]) - 10);
+    }
     canvas.drawPath(path, dataPlotter);
   }
 

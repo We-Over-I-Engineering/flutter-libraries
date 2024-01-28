@@ -302,8 +302,10 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               bottom: 30,
             ),
             child: WOILineGraph(
-              yaxisValues: [30, 20, 60, 15, 90, 130, 12],
-              xaxisValues: [1, 2, 3, 4, 5, 6, 'Sun'],
+              height: 300,
+              width: 340,
+              yaxisValues: [30, 20, 60, 15, 90, 130, 12, 10],
+              xaxisValues: [1, 2, 3, 4, 5, 6, 'Sun', 7],
             ),
           )
         ],
