@@ -291,21 +291,28 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             isHoursNeeded: true,
           ),
           //--------BarGraph--------//
-          /* const Padding(
+          /*  const Padding(
             padding: EdgeInsets.only(top: 30),
             child: WOIBarGraph(),
           ), */
           //---------LineGraph---------//
-          const Padding(
-            padding: EdgeInsets.only(
+          Padding(
+            padding: const EdgeInsets.only(
               top: 30,
               bottom: 30,
             ),
             child: WOILineGraph(
               height: 300,
               width: 340,
-              yaxisValues: [30, 20, 60, 15, 90, 130, 12, 10],
-              xaxisValues: [1, 2, 3, 4, 5, 6, 'Sun', 7],
+              yaxisValues: const [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+              xaxisValues: const [1, 2, 3, 4, 5, 6, 'Sun', ''],
+              filledGraph: false,
+              dataPointColor: Colors.grey,
+              dataPointSize: 2,
+              xaxisAndTextGap: 20,
+              xaxisSeparatorLength: 3,
+              fillColor: Colors.lightBlue.withOpacity(0.2),
+              lineColor: Colors.blue,
             ),
           )
         ],
