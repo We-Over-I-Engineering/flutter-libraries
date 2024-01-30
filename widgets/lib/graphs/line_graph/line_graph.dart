@@ -67,6 +67,7 @@ class _WOILineGraphState extends State<WOILineGraph> {
 
   @override
   Widget build(BuildContext context) {
+    values.clear();
     roundingFactor = 1;
     max = widget.yaxisValues.reduce(
       (value, element) => value > element ? value : element,
@@ -89,7 +90,9 @@ class _WOILineGraphState extends State<WOILineGraph> {
 
     double partitionValue =
         values.reduce((value, element) => value > element ? value : element);
-    max /= (roundingFactor / 10);
+    if (roundingFactor != 1) {
+      max /= (roundingFactor / 10);
+    }
     increment = (max) / partitionValue;
     numberOfIncrements = ((max) / increment).ceil();
     return Stack(

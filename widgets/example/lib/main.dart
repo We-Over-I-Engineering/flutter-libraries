@@ -291,10 +291,10 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             isHoursNeeded: true,
           ),
           //--------BarGraph--------//
-          /*  const Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 30),
             child: WOIBarGraph(),
-          ), */
+          ),
           //---------LineGraph---------//
           Padding(
             padding: const EdgeInsets.only(
