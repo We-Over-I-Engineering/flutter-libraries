@@ -304,9 +304,10 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             child: WOILineGraph(
               height: 300,
               width: 340,
-              yaxisValues: const [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-              xaxisValues: const [1, 2, 3, 4, 5, 6, 'Sun', ''],
-              filledGraph: false,
+              yaxisValues: const [0.1, 0.2, 0.3, 0.4, 10, 0.6, 0.7, 0.8, 0.1],
+              xaxisValues: const [1, 2, 3, 4, 5, 6, 'Sun', '', ''],
+              filledGraph: true,
+              dottedYaxis: true,
               dataPointColor: Colors.grey,
               dataPointSize: 2,
               xaxisAndTextGap: 20,

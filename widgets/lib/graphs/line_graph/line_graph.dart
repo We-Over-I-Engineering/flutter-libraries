@@ -20,6 +20,7 @@ class WOILineGraph extends StatefulWidget {
     this.xaxisAndTextGap = 30,
     this.topSpacing = 10,
     this.incrementLineColor = Colors.red,
+    this.dottedYaxis = false,
   }) : assert(yaxisValues.length == xaxisValues.length,
             'yaxis and xaxis should have equal number of entries');
 
@@ -34,6 +35,7 @@ class WOILineGraph extends StatefulWidget {
   final double xaxisAndTextGap;
   final double topSpacing;
   final bool filledGraph;
+  final bool dottedYaxis;
   final Color lineColor;
   final Color fillColor;
   final Color dataPointColor;
@@ -161,18 +163,63 @@ class _WOILineGraphState extends State<WOILineGraph> {
                             style: const TextStyle(height: 0.1),
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  width: 1,
-                                  color: widget.incrementLineColor,
+                        Visibility(
+                          visible: widget.dottedYaxis,
+                          child: Expanded(
+                            child: Row(
+                              children: List.generate(
+                                30,
+                                (index) {
+                                  return Row(
+                                    children: [
+                                      Container(
+                                        width: (widget.width -
+                                                widget.yaxisTextBoxWidth) /
+                                            60,
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            top: BorderSide(
+                                              width: 1,
+                                              color: widget.incrementLineColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: (widget.width -
+                                                widget.yaxisTextBoxWidth) /
+                                            60,
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            top: BorderSide(
+                                              width: 1,
+                                              color: widget.backgroundColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: !widget.dottedYaxis,
+                          child: Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                    width: 1,
+                                    color: widget.incrementLineColor,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

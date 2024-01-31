@@ -42,8 +42,10 @@ class DataPointPainter extends CustomPainter {
           size.width -
               (((size.width / dataPoints.length) * dataPoints.length) -
                   (size.width / (dataPoints.length * 2))),
-          size.height -
-              (size.height / max) * (dataPoints[0] < 0 ? 0 : dataPoints[0]));
+          (size.height -
+                  (size.height / max) *
+                      (dataPoints[0] < 0 ? 0 : dataPoints[0])) +
+              2);
 
       Path path = Path();
       Path path2 = Path();
@@ -62,8 +64,10 @@ class DataPointPainter extends CustomPainter {
             size.width -
                 (((size.width / dataPoints.length) * (dataPoints.length - i)) -
                     (size.width / (dataPoints.length * 2))),
-            size.height -
-                (size.height / max) * (dataPoints[i] < 0 ? 0 : dataPoints[i]));
+            (size.height -
+                    ((size.height / max) *
+                        (dataPoints[i] < 0 ? 0 : dataPoints[i]))) +
+                2);
 
         path.lineTo(pointerOffset.dx, pointerOffset.dy);
         path2.lineTo(pointerOffset.dx, pointerOffset.dy);
@@ -93,8 +97,9 @@ class DataPointPainter extends CustomPainter {
               (((size.width / dataPoints.length) * dataPoints.length) -
                   (size.width / (dataPoints.length * 2))),
           (size.height -
-              (size.height / max) * (dataPoints[0] < 0 ? 0 : dataPoints[0]) +
-              2));
+                  (size.height / max) *
+                      (dataPoints[0] < 0 ? 0 : dataPoints[0])) +
+              2);
 
       Path path = Path();
 
@@ -107,8 +112,9 @@ class DataPointPainter extends CustomPainter {
                 (((size.width / dataPoints.length) * (dataPoints.length - i)) -
                     (size.width / (dataPoints.length * 2))),
             (size.height -
-                (size.height / max) * (dataPoints[i] < 0 ? 0 : dataPoints[i]) +
-                2));
+                    (size.height / max) *
+                        (dataPoints[i] < 0 ? 0 : dataPoints[i])) +
+                2);
 
         path.lineTo(pointerOffset.dx, pointerOffset.dy);
         canvas.drawCircle(pointerOffset, radius, totalCircle);
