@@ -290,11 +290,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
           const WOICountdownTimer(
             isHoursNeeded: true,
           ),
-          //--------BarGraph--------//
-          const Padding(
-            padding: EdgeInsets.only(top: 30),
-            child: WOIBarGraph(),
-          ),
           //---------LineGraph---------//
           Padding(
             padding: const EdgeInsets.only(
@@ -315,7 +310,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               fillColor: Colors.lightBlue.withOpacity(0.2),
               lineColor: Colors.blue,
             ),
-          )
+          ),
         ],
       ),
     );

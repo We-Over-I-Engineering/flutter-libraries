@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:weoveri_flutter_widgets/graphs/line_graph/line_graph_painter.dart';
 
+/// [WOILineGraph] is a simple and easy to use line graph widget.
+///
+/// Here is an example of the [WOILineGraph]
+///
+/// ```dart
+///  WOILineGraph(
+///             height: 300,
+///          width: 340,
+///       yaxisValues: const [0.1, 0.2, 0.3, 0.4, 10, 0.6, 0.7, 0.8, 0.1],
+///    xaxisValues: const [1, 2, 3, 4, 5, 6, 'Sun', '', ''],
+/// filledGraph: true,
+///    dottedYaxis: true,
+///   dataPointColor: Colors.grey,
+/// dataPointSize: 2,
+/// xaxisAndTextGap: 20,
+///  xaxisSeparatorLength: 3,
+/// fillColor: Colors.lightBlue.withOpacity(0.2),
+/// lineColor: Colors.blue,
+///),
+///,,,
+///
+
 class WOILineGraph extends StatefulWidget {
+  /// The [WOILineGraph] essentially requires four variables i.e height, width, xaxisValues, yaxisValues.
+  /// Number of entries should be equal in the xaxisValues and the yaxisValues list.
   const WOILineGraph({
     super.key,
     required this.height,
@@ -24,13 +48,28 @@ class WOILineGraph extends StatefulWidget {
   }) : assert(yaxisValues.length == xaxisValues.length,
             'yaxis and xaxis should have equal number of entries');
 
+  /// The height from the xaxis to the top most increment.
   final double height;
+
+  /// The width of the complete widget.
   final double width;
+
+  /// The yaxis points for every data point.
   final List<double> yaxisValues;
+
+  /// The xaxis points for every data point.
   final List xaxisValues;
+
+  /// Size of the circle depicting the data point.
   final double dataPointSize;
+
+  /// Width of the line connecting the data points.
   final double lineWidth;
+
+  /// Width of the text box wrapping the increments on the yaxis. This can be used to fix overflow issues if the text size increases.
   final double yaxisTextBoxWidth;
+
+  /// Length of the vertical lines separating each xaxis increment.
   final double xaxisSeparatorLength;
   final double xaxisAndTextGap;
   final double topSpacing;

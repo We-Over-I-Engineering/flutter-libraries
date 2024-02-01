@@ -103,7 +103,7 @@ class WOISectionBar extends StatefulWidget {
   /// Each section as defined by the user can track the progress of all hierarchical steps needed to achieve a goal.
   /// The section bar takes width and a list called sections as required parameters. Sections can not contain a value of 0 and currentProgress cannot be greater that the sum of all elements in the section list.
   WOISectionBar({
-    Key? key,
+    super.key,
     required this.width,
     required this.sections,
     this.borderedSections = false,
@@ -136,8 +136,7 @@ class WOISectionBar extends StatefulWidget {
         assert(
             currentProgress <=
                 sections.reduce((value, element) => value + element),
-            'Current progress cannot be greater than the sum of elements of sections list.'),
-        super(key: key);
+            'Current progress cannot be greater than the sum of elements of sections list.');
 
   @override
   State<WOISectionBar> createState() => _WOISectionBarState();

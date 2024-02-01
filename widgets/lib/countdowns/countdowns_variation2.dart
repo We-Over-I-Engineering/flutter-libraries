@@ -553,7 +553,6 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
             return;
           }
           // Seconds timer will keep decreasing unless all the timer values are 0
-          secondsController.selectedItem - 1;
           secondsController.animateTo(
             (secondsController.position.pixels - scrollPositionHandler),
             duration: const Duration(milliseconds: 500),
@@ -561,7 +560,6 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
           );
           if (selectedSeconds == 0 && selectedMinutes != 0) {
             // Minutes will decrease when the seconds value is 0 and minutes have been set to a non zero value.
-            minutesController.selectedItem - 1;
             minutesController.animateTo(
               (minutesController.position.pixels - scrollPositionHandler),
               duration: const Duration(milliseconds: 500),
@@ -573,7 +571,7 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
               selectedSeconds == 0 &&
               minutesController.selectedItem != minutesEndTime) {
             // Hours and minutes will decrease when minutes and seconds value is 0 and the current minute value in the scroll controller is not equal to the end scroll value for minutes.
-            hoursController.selectedItem - 1;
+            // hoursController.selectedItem - 1;
             hoursController.animateTo(
               (hoursController.position.pixels - scrollPositionHandler),
               duration: const Duration(milliseconds: 500),
@@ -619,7 +617,6 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
             return;
           }
           // Seconds timer will keep decreasing unless all the timer values are 0
-          secondsController.selectedItem - 1;
           secondsController.animateTo(
             (secondsController.position.pixels - scrollPositionHandler),
             duration: const Duration(milliseconds: 500),
@@ -627,7 +624,7 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
           );
           if (selectedSeconds == 0 && selectedMinutes != 0) {
             // Minutes will decrease when the seconds value is 0 and minutes have been set to a non zero value.
-            minutesController.selectedItem - 1;
+
             minutesController.animateTo(
               (minutesController.position.pixels - scrollPositionHandler),
               duration: const Duration(milliseconds: 500),
@@ -639,7 +636,6 @@ class _WOICountdownTimerState extends State<WOICountdownTimer> {
               selectedSeconds == 0 &&
               minutesController.selectedItem != minutesEndTime) {
             // Hours and minutes will decrease when minutes and seconds value is 0 and the current minute value in the scroll controller is not equal to the end scroll value for minutes.
-            hoursController.selectedItem - 1;
             hoursController.animateTo(
               (hoursController.position.pixels - scrollPositionHandler),
               duration: const Duration(milliseconds: 500),

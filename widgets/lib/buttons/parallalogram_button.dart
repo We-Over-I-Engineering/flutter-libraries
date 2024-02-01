@@ -19,7 +19,7 @@ import 'button_enums.dart';
 
 class WOIParallalogramButton extends StatelessWidget {
   const WOIParallalogramButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.buttonColor = Colors.black,
     this.borderColor,
@@ -33,7 +33,7 @@ class WOIParallalogramButton extends StatelessWidget {
     this.textMargin,
     this.tiltSide = TiltSide.right,
     this.gradient,
-  }) : super(key: key);
+  });
 
   /// Required Field that will display text in the center
   final String text;

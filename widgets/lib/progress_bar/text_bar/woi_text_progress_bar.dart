@@ -51,7 +51,7 @@ class WOITextBar extends StatefulWidget {
   /// The [WOITextBar] is a progress bar variation that has a text depicting progress which fills up based on the progress value.
   /// It takes an interger progressValue as a required parameter which should be between 0 and 100 inclusive. Border radius can not be more than 30
   const WOITextBar({
-    Key? key,
+    super.key,
     this.textStyle = const TextStyle(
       fontSize: 150,
       fontWeight: FontWeight.bold,
@@ -65,8 +65,7 @@ class WOITextBar extends StatefulWidget {
     this.borderRadius = 20,
   })  : assert(progressValue >= 0 && progressValue <= 100,
             "Progress value should be between 0 and 100 inclusive"),
-        assert(borderRadius <= 30, "Border radius should be less than 30"),
-        super(key: key);
+        assert(borderRadius <= 30, "Border radius should be less than 30");
   @override
   State<WOITextBar> createState() => _WOITextBarState();
 }

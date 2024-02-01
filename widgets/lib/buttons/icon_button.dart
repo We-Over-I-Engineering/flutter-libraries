@@ -47,7 +47,7 @@ class WOIIconButton extends StatelessWidget {
   ///
   /// Atleast one field in `icon` or `child` is required
   const WOIIconButton({
-    Key? key,
+    super.key,
     this.size = 35,
     this.backgroundColor = Colors.black,
     this.border,
@@ -57,7 +57,7 @@ class WOIIconButton extends StatelessWidget {
     required this.onTap,
     this.child,
     this.buttonStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
