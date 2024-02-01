@@ -71,14 +71,32 @@ class WOILineGraph extends StatefulWidget {
 
   /// Length of the vertical lines separating each xaxis increment.
   final double xaxisSeparatorLength;
+
+  /// Gap between the xaxis and its values.
   final double xaxisAndTextGap;
+
+  /// Changes height of the widget to adjust for how much of the top area needs to be incorporated in the background color.
   final double topSpacing;
+
+  /// Set to true if the bottom of the data points line needs to be colored.
   final bool filledGraph;
+
+  /// Change the style of the yaxis lines from solid to dotted.
   final bool dottedYaxis;
+
+  /// Color of the data point line.
   final Color lineColor;
+
+  /// Color below the data point line. Only needed if the filledGraph variable is set to true.
   final Color fillColor;
+
+  /// Color of the data points.
   final Color dataPointColor;
+
+  /// Background color of the graph
   final Color backgroundColor;
+
+  /// Color of the yaxis increment lines. Set this to transparent to get rid of the lines.
   final Color incrementLineColor;
 
   @override
@@ -89,11 +107,12 @@ class _WOILineGraphState extends State<WOILineGraph> {
   double max = 0;
   double tempForMax = 0;
   double increment = 0.2;
-  int numberOfIncrements = 4;
+  double numberOfIncrements = 0;
   int roundingFactor = 1;
   List<double> values = [];
 
-  bool isDivisibleBy10(double value) {
+  // Function to check if the max value is divisble by 0.5, 5 or 10.
+  bool isDivisibleByRequiredIncrement(double value) {
     if (value % 10 == 0) {
       return true;
     }
@@ -110,32 +129,43 @@ class _WOILineGraphState extends State<WOILineGraph> {
   Widget build(BuildContext context) {
     values.clear();
     roundingFactor = 1;
+
+    // Max = the maximum value in the yaxisValues list.
     max = widget.yaxisValues.reduce(
       (value, element) => value > element ? value : element,
     );
     tempForMax = max;
+
+    // If max value < 0, convert it to integer.
     while (max.ceil() != max.floor()) {
       max = tempForMax * roundingFactor;
       roundingFactor *= 10;
     }
 
-    while (!isDivisibleBy10(max)) {
+    // If max is not divisible by either 0.5, 5, 10 keep updating it.
+    while (!isDivisibleByRequiredIncrement(max)) {
       max++;
     }
 
+    // Calculating the number of increments possible for the given data. Max is 7.
     for (var i = 0; i < 7; i++) {
       if ((max) % (i + 1) == 0) {
         values.add(i + 1);
       }
     }
 
-    double partitionValue =
+    // partitionValue is the max value from values list which means we are using maximum number of partitions
+    numberOfIncrements =
         values.reduce((value, element) => value > element ? value : element);
+
+    // Convert the max value back to < 0 if needed.
     if (roundingFactor != 1) {
       max /= (roundingFactor / 10);
     }
-    increment = (max) / partitionValue;
-    numberOfIncrements = ((max) / increment).ceil();
+
+    // Value of each increment.
+    increment = (max) / numberOfIncrements;
+
     return Stack(
       alignment: Alignment.centerRight,
       children: [
@@ -188,7 +218,7 @@ class _WOILineGraphState extends State<WOILineGraph> {
               // y-Axis implementation
               Column(
                 children: List.generate(
-                  numberOfIncrements,
+                  numberOfIncrements.toInt(),
                   (index) => Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

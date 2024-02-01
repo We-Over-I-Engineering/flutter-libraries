@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Painter to create the data points and the line joining them.
 class DataPointPainter extends CustomPainter {
   final List<double> dataPoints;
   final double max;
@@ -38,6 +39,7 @@ class DataPointPainter extends CustomPainter {
         ..strokeWidth = lineWidth
         ..style = PaintingStyle.stroke;
 
+      // Offset of the first data point
       Offset pointerOffset = Offset(
           size.width -
               (((size.width / dataPoints.length) * dataPoints.length) -
@@ -59,7 +61,7 @@ class DataPointPainter extends CustomPainter {
       path2.moveTo(pointerOffset.dx, pointerOffset.dy);
       canvas.drawCircle(pointerOffset, radius, totalCircle);
       for (int i = 1; i < dataPoints.length; i++) {
-        // Calculating the offset
+        // Calculating the offset of the data points
         pointerOffset = Offset(
             size.width -
                 (((size.width / dataPoints.length) * (dataPoints.length - i)) -
@@ -106,7 +108,7 @@ class DataPointPainter extends CustomPainter {
       path.moveTo(pointerOffset.dx, pointerOffset.dy);
       canvas.drawCircle(pointerOffset, radius, totalCircle);
       for (int i = 1; i < dataPoints.length; i++) {
-        // Calculating the offset
+        // Calculating the offset of the data points.
         pointerOffset = Offset(
             size.width -
                 (((size.width / dataPoints.length) * (dataPoints.length - i)) -
