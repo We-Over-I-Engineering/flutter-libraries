@@ -203,7 +203,7 @@ class _WOILineGraphState extends State<WOILineGraph> {
         children: [
           RotatedBox(
               quarterTurns: -1,
-              child: Container(
+              child: SizedBox(
                   height: widget.leftSpacing, child: widget.yaxisLabel)),
           Column(
             children: [
