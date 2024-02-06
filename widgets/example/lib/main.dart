@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weoveri_flutter_widgets/graphs/line_graph/data_line_properties.dart';
 import 'package:weoveri_flutter_widgets/woi_widgets.dart';
 
 void main() {
@@ -299,6 +300,24 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             child: WOILineGraph(
               height: 300,
               width: 340,
+              heading: const Text(
+                'Profits',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              xaxisLabel: const Text(
+                'Days of the week',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              yaxisLabel: const Text(
+                'Daily profit',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              leftSpacing: 30,
+              bottomSpacing: 50,
+              topSpacing: 50,
               yaxisValues: [
                 LineProperties(
                   values: const [0.1, 0.2, 0.3, 0.4, 10, 0.6, 0.7, 0.8, 0.1],

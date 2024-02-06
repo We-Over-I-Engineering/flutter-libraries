@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:weoveri_flutter_widgets/graphs/graphs.dart';
+import 'package:weoveri_flutter_widgets/graphs/line_graph/data_line_properties.dart';
 
 /// Painter to create the data points and the line joining them.
 class DataPointPainter extends CustomPainter {
   final List<LineProperties> dataPoints;
   final double max;
+  final double topSpacing;
 
   DataPointPainter({
     required this.dataPoints,
     required this.max,
+    required this.topSpacing,
   });
 
   @override
@@ -35,12 +37,13 @@ class DataPointPainter extends CustomPainter {
                 (((size.width / dataPoints[i].values.length) *
                         dataPoints[i].values.length) -
                     (size.width / (dataPoints[i].values.length * 2))),
-            (size.height -
-                    (size.height / max) *
-                        (dataPoints[i].values[0] < 0
-                            ? 0
-                            : dataPoints[i].values[0])) +
-                2);
+            ((size.height -
+                        (size.height / max) *
+                            (dataPoints[i].values[0] < 0
+                                ? 0
+                                : dataPoints[i].values[0])) +
+                    2) -
+                (topSpacing / 2));
 
         Path path = Path();
         Path path2 = Path();
@@ -49,7 +52,7 @@ class DataPointPainter extends CustomPainter {
                     (dataPoints[i].values.length -
                         (dataPoints[i].values.length - 1))) -
                 (size.width / (dataPoints[i].values.length * 2))),
-            size.height);
+            size.height - (topSpacing / 2));
 
         path.lineTo(pointerOffset.dx, pointerOffset.dy);
         path2.moveTo(pointerOffset.dx, pointerOffset.dy);
@@ -63,12 +66,13 @@ class DataPointPainter extends CustomPainter {
                   (((size.width / dataPoints[i].values.length) *
                           (dataPoints[i].values.length - j)) -
                       (size.width / (dataPoints[i].values.length * 2))),
-              (size.height -
-                      ((size.height / max) *
-                          (dataPoints[i].values[j] < 0
-                              ? 0
-                              : dataPoints[i].values[j]))) +
-                  2);
+              ((size.height -
+                          ((size.height / max) *
+                              (dataPoints[i].values[j] < 0
+                                  ? 0
+                                  : dataPoints[i].values[j]))) +
+                      2) -
+                  (topSpacing / 2));
 
           path.lineTo(pointerOffset.dx, pointerOffset.dy);
           path2.lineTo(pointerOffset.dx, pointerOffset.dy);
@@ -80,7 +84,7 @@ class DataPointPainter extends CustomPainter {
             (((size.width / dataPoints[i].values.length) *
                     (dataPoints[i].values.length)) -
                 (size.width / (dataPoints[i].values.length * 2))),
-            size.height);
+            size.height - (topSpacing / 2));
         path.close();
         canvas.drawPath(path, dataPlotter);
         canvas.drawPath(path2, lineHighlighter);
@@ -101,12 +105,13 @@ class DataPointPainter extends CustomPainter {
                 (((size.width / dataPoints[i].values.length) *
                         dataPoints[i].values.length) -
                     (size.width / (dataPoints[i].values.length * 2))),
-            (size.height -
-                    (size.height / max) *
-                        (dataPoints[i].values[0] < 0
-                            ? 0
-                            : dataPoints[i].values[0])) +
-                2);
+            ((size.height -
+                        (size.height / max) *
+                            (dataPoints[i].values[0] < 0
+                                ? 0
+                                : dataPoints[i].values[0])) +
+                    2) -
+                (topSpacing / 2));
 
         Path path = Path();
 
@@ -121,12 +126,13 @@ class DataPointPainter extends CustomPainter {
                   (((size.width / dataPoints[i].values.length) *
                           (dataPoints[i].values.length - j)) -
                       (size.width / (dataPoints[i].values.length * 2))),
-              (size.height -
-                      (size.height / max) *
-                          (dataPoints[i].values[j] < 0
-                              ? 0
-                              : dataPoints[i].values[j])) +
-                  2);
+              ((size.height -
+                          (size.height / max) *
+                              (dataPoints[i].values[j] < 0
+                                  ? 0
+                                  : dataPoints[i].values[j])) +
+                      2) -
+                  (topSpacing / 2));
 
           path.lineTo(pointerOffset.dx, pointerOffset.dy);
           if (dataPoints[i].showDataPoints) {

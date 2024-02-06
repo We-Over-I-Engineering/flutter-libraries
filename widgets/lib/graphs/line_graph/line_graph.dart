@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weoveri_flutter_widgets/graphs/line_graph/data_line_properties.dart';
 import 'package:weoveri_flutter_widgets/graphs/line_graph/line_graph_painter.dart';
 
 /// [WOILineGraph] is a simple and easy to use line graph widget.
@@ -37,8 +38,13 @@ class WOILineGraph extends StatefulWidget {
     this.xaxisSeparatorLength = 3,
     this.xaxisAndTextGap = 30,
     this.topSpacing = 10,
+    this.bottomSpacing = 0,
+    this.leftSpacing = 0,
     this.incrementLineColor = Colors.red,
     this.dottedYaxis = false,
+    this.heading,
+    this.xaxisLabel,
+    this.yaxisLabel,
   });
 
   /// The height from the xaxis to the top most increment.
@@ -62,8 +68,14 @@ class WOILineGraph extends StatefulWidget {
   /// Gap between the xaxis and its values.
   final double xaxisAndTextGap;
 
-  /// Changes height of the widget to adjust for how much of the top area needs to be incorporated in the background color.
+  /// Changes height of the widget to adjust for how much of the top area needs to be incorporated in the background color. Will also be needed when adding heading.
   final double topSpacing;
+
+  /// Adds spacing to the bottom. Will need to be adjusted when adding an xaxis label.
+  final double bottomSpacing;
+
+  /// Adds spacing to the left. Will need to be adjusted when adding an yaxis label.
+  final double leftSpacing;
 
   /// Change the style of the yaxis lines from solid to dotted.
   final bool dottedYaxis;
@@ -73,6 +85,15 @@ class WOILineGraph extends StatefulWidget {
 
   /// Color of the yaxis increment lines. Set this to transparent to get rid of the lines.
   final Color incrementLineColor;
+
+  /// Heading text to indicate what the graph represents
+  final Text? heading;
+
+  /// Label text to indicate what the xaxis reporesents
+  final Text? xaxisLabel;
+
+  /// Label text to indicate what the xaxis reporesents
+  final Text? yaxisLabel;
 
   @override
   State<WOILineGraph> createState() => _WOILineGraphState();
@@ -169,222 +190,223 @@ class _WOILineGraphState extends State<WOILineGraph> {
         painter: DataPointPainter(
           dataPoints: widget.yaxisValues,
           max: max,
+          topSpacing: widget.bottomSpacing,
         ),
       ),
     );
   }
 
   Widget graphLayout() {
-    return Column(
-      children: [
-        Container(
-          height: widget.topSpacing,
-          width: widget.width,
-          color: widget.backgroundColor,
-        ),
-        Container(
-          height: widget.height,
-          width: widget.width,
-          color: widget.backgroundColor,
-          child: Stack(
-            alignment: Alignment.bottomLeft,
+    return SizedBox(
+      width: widget.width + widget.leftSpacing,
+      child: Row(
+        children: [
+          RotatedBox(
+              quarterTurns: -1,
+              child: Container(
+                  height: widget.leftSpacing, child: widget.yaxisLabel)),
+          Column(
             children: [
-              // y-Axis implementation
-              Column(
-                children: List.generate(
-                  numberOfIncrements.toInt(),
-                  (index) => Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: widget.yaxisTextBoxWidth,
-                          child: Text(
-                            (increment * (numberOfIncrements - index))
-                                .toStringAsFixed(1),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(height: 0.1),
-                          ),
-                        ),
-                        Visibility(
-                          visible: widget.dottedYaxis,
-                          child: Expanded(
-                            child: Row(
-                              children: List.generate(
-                                30,
-                                (index) {
-                                  return Row(
-                                    children: [
-                                      Container(
-                                        width: (widget.width -
-                                                widget.yaxisTextBoxWidth) /
-                                            60,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            top: BorderSide(
-                                              width: 1,
-                                              color: widget.incrementLineColor,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: (widget.width -
-                                                widget.yaxisTextBoxWidth) /
-                                            60,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            top: BorderSide(
-                                              width: 1,
-                                              color: widget.backgroundColor,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
+              Container(
+                height: widget.topSpacing,
+                width: widget.width,
+                color: widget.backgroundColor,
+                child: widget.heading,
+              ),
+              Container(
+                height: widget.height,
+                width: widget.width,
+                color: widget.backgroundColor,
+                child: Stack(
+                  alignment: Alignment.bottomLeft,
+                  children: [
+                    // y-Axis implementation
+                    Column(
+                      children: List.generate(
+                        numberOfIncrements.toInt(),
+                        (index) => Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: widget.yaxisTextBoxWidth,
+                                child: Text(
+                                  (increment * (numberOfIncrements - index))
+                                      .toStringAsFixed(1),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(height: 0.1),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: !widget.dottedYaxis,
-                          child: Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                    width: 1,
-                                    color: widget.incrementLineColor,
+                              Visibility(
+                                visible: widget.dottedYaxis,
+                                child: Expanded(
+                                  child: Row(
+                                    children: List.generate(
+                                      30,
+                                      (index) {
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              width: (widget.width -
+                                                      widget
+                                                          .yaxisTextBoxWidth) /
+                                                  60,
+                                              decoration: BoxDecoration(
+                                                border: Border(
+                                                  top: BorderSide(
+                                                    width: 1,
+                                                    color: widget
+                                                        .incrementLineColor,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: (widget.width -
+                                                      widget
+                                                          .yaxisTextBoxWidth) /
+                                                  60,
+                                              decoration: BoxDecoration(
+                                                border: Border(
+                                                  top: BorderSide(
+                                                    width: 1,
+                                                    color:
+                                                        widget.backgroundColor,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
+                              Visibility(
+                                visible: !widget.dottedYaxis,
+                                child: Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(
+                                          width: 1,
+                                          color: widget.incrementLineColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    // x-Axis implementation
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: widget.yaxisTextBoxWidth,
+                          child: const Text(
+                            '0',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(height: 0.7),
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: List.generate(
+                              widget.xaxisValues.length,
+                              (index) {
+                                return Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        height: widget.xaxisSeparatorLength,
+                                        decoration: BoxDecoration(
+                                          border: index == 0
+                                              ? const Border(
+                                                  top: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                  left: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                  right: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                )
+                                              : const Border(
+                                                  top: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                  right: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
                       ],
-                    ),
-                  ),
+                    )
+                  ],
                 ),
               ),
-              // x-Axis implementation
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: widget.yaxisTextBoxWidth,
-                    child: const Text(
-                      '0',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(height: 0.7),
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: List.generate(
-                        widget.xaxisValues.length,
-                        (index) {
-                          return Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  height: widget.xaxisSeparatorLength,
-                                  decoration: BoxDecoration(
-                                    border: index == 0
-                                        ? const Border(
-                                            top: BorderSide(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                            left: BorderSide(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                            right: BorderSide(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                          )
-                                        : const Border(
-                                            top: BorderSide(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                            right: BorderSide(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-        Container(
-          color: widget.backgroundColor,
-          width: widget.width,
-          height: widget.xaxisAndTextGap,
-          child: Row(
-            children: [
-              SizedBox(
-                width: widget.yaxisTextBoxWidth,
-                child: const Text(
-                  '',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(height: 0.1),
-                ),
-              ),
-              SizedBox(
-                width: widget.width - widget.yaxisTextBoxWidth,
+              Container(
+                color: widget.backgroundColor,
+                width: widget.width,
+                height: widget.xaxisAndTextGap,
                 child: Row(
-                  children: List.generate(
-                    widget.xaxisValues.length,
-                    (index) => Expanded(
-                      child: Text(
-                        '${widget.xaxisValues[index]}',
+                  children: [
+                    SizedBox(
+                      width: widget.yaxisTextBoxWidth,
+                      child: const Text(
+                        '',
                         textAlign: TextAlign.center,
+                        style: TextStyle(height: 0.1),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      width: widget.width - widget.yaxisTextBoxWidth,
+                      child: Row(
+                        children: List.generate(
+                          widget.xaxisValues.length,
+                          (index) => Expanded(
+                            child: Text(
+                              '${widget.xaxisValues[index]}',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              Container(
+                height: widget.bottomSpacing,
+                width: widget.width,
+                color: widget.backgroundColor,
+                child: widget.xaxisLabel,
               ),
             ],
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
-}
-
-class LineProperties {
-  LineProperties({
-    required this.values,
-    this.lineWidth = 1,
-    this.lineColor = Colors.blue,
-    this.fillColor = Colors.lightBlue,
-    this.dataPointColor = Colors.purple,
-    this.filledGraph = false,
-    this.showDataPoints = true,
-    this.dataPointSize = 2,
-  });
-
-  List<double> values;
-  double lineWidth;
-  Color lineColor;
-  Color fillColor;
-  Color dataPointColor;
-  bool filledGraph;
-  bool showDataPoints;
-  double dataPointSize;
 }
