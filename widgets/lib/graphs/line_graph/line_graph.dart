@@ -32,21 +32,14 @@ class WOILineGraph extends StatefulWidget {
     required this.width,
     required this.yaxisValues,
     required this.xaxisValues,
-    this.dataPointSize = 2,
     this.yaxisTextBoxWidth = 40,
-    this.filledGraph = false,
-    this.dataPointColor = Colors.purple,
-    this.fillColor = Colors.lightBlue,
-    this.lineColor = Colors.blue,
     this.backgroundColor = Colors.white,
-    this.lineWidth = 1,
     this.xaxisSeparatorLength = 3,
     this.xaxisAndTextGap = 30,
     this.topSpacing = 10,
     this.incrementLineColor = Colors.red,
     this.dottedYaxis = false,
-  }) : assert(yaxisValues.length == xaxisValues.length,
-            'yaxis and xaxis should have equal number of entries');
+  });
 
   /// The height from the xaxis to the top most increment.
   final double height;
@@ -55,16 +48,10 @@ class WOILineGraph extends StatefulWidget {
   final double width;
 
   /// The yaxis points for every data point.
-  final List<double> yaxisValues;
+  final List<LineProperties> yaxisValues;
 
   /// The xaxis points for every data point.
   final List xaxisValues;
-
-  /// Size of the circle depicting the data point.
-  final double dataPointSize;
-
-  /// Width of the line connecting the data points.
-  final double lineWidth;
 
   /// Width of the text box wrapping the increments on the yaxis. This can be used to fix overflow issues if the text size increases.
   final double yaxisTextBoxWidth;
@@ -78,20 +65,8 @@ class WOILineGraph extends StatefulWidget {
   /// Changes height of the widget to adjust for how much of the top area needs to be incorporated in the background color.
   final double topSpacing;
 
-  /// Set to true if the bottom of the data points line needs to be colored.
-  final bool filledGraph;
-
   /// Change the style of the yaxis lines from solid to dotted.
   final bool dottedYaxis;
-
-  /// Color of the data point line.
-  final Color lineColor;
-
-  /// Color below the data point line. Only needed if the filledGraph variable is set to true.
-  final Color fillColor;
-
-  /// Color of the data points.
-  final Color dataPointColor;
 
   /// Background color of the graph
   final Color backgroundColor;
@@ -131,9 +106,14 @@ class _WOILineGraphState extends State<WOILineGraph> {
     roundingFactor = 1;
 
     // Max = the maximum value in the yaxisValues list.
-    max = widget.yaxisValues.reduce(
-      (value, element) => value > element ? value : element,
-    );
+    for (int i = 0; i < widget.yaxisValues.length; i++) {
+      for (int j = 0; j < widget.yaxisValues[i].values.length; j++) {
+        if (max < widget.yaxisValues[i].values[j]) {
+          max = widget.yaxisValues[i].values[j];
+        }
+      }
+    }
+
     tempForMax = max;
 
     // If max value < 0, convert it to integer.
@@ -189,12 +169,6 @@ class _WOILineGraphState extends State<WOILineGraph> {
         painter: DataPointPainter(
           dataPoints: widget.yaxisValues,
           max: max,
-          isFilled: widget.filledGraph,
-          lineColor: widget.lineColor,
-          fillColor: widget.fillColor,
-          dataPointColor: widget.dataPointColor,
-          lineWidth: widget.lineWidth,
-          dataPointSize: widget.dataPointSize,
         ),
       ),
     );
@@ -391,4 +365,26 @@ class _WOILineGraphState extends State<WOILineGraph> {
       ],
     );
   }
+}
+
+class LineProperties {
+  LineProperties({
+    required this.values,
+    this.lineWidth = 1,
+    this.lineColor = Colors.blue,
+    this.fillColor = Colors.lightBlue,
+    this.dataPointColor = Colors.purple,
+    this.filledGraph = false,
+    this.showDataPoints = true,
+    this.dataPointSize = 2,
+  });
+
+  List<double> values;
+  double lineWidth;
+  Color lineColor;
+  Color fillColor;
+  Color dataPointColor;
+  bool filledGraph;
+  bool showDataPoints;
+  double dataPointSize;
 }
