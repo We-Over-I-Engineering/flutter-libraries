@@ -15,28 +15,40 @@ class DataPointPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    double strokeWidth = 2;
+    Paint totalCircle = Paint();
+    double radius;
+    Paint dataPlotter = Paint();
+    Paint lineHighlighter = Paint();
+    Offset pointerOffset;
+    Path path = Path();
+    Path path2 = Path();
+    double singleUnitOfWidth;
+    int totalNumberOfDataPoints;
+
     for (int i = 0; i < dataPoints.length; i++) {
+      totalNumberOfDataPoints = dataPoints[i].values.length;
+      singleUnitOfWidth = size.width / totalNumberOfDataPoints;
+
       if (dataPoints[i].filledGraph) {
-        double strokeWidth = 2;
-        Paint totalCircle = Paint()
+        totalCircle
           ..strokeWidth = strokeWidth
           ..color = dataPoints[i].dataPointColor
           ..style = PaintingStyle.stroke;
-        double radius = dataPoints[i].dataPointSize;
-        final Paint dataPlotter = Paint()
+        radius = dataPoints[i].dataPointSize;
+        dataPlotter
           ..color = dataPoints[i].fillColor
           ..style = PaintingStyle.fill;
-        final Paint lineHighlighter = Paint()
+        lineHighlighter
           ..color = dataPoints[i].lineColor
           ..strokeWidth = dataPoints[i].lineWidth
           ..style = PaintingStyle.stroke;
 
         // Offset of the first data point
-        Offset pointerOffset = Offset(
+        pointerOffset = Offset(
             size.width -
-                (((size.width / dataPoints[i].values.length) *
-                        dataPoints[i].values.length) -
-                    (size.width / (dataPoints[i].values.length * 2))),
+                ((singleUnitOfWidth * totalNumberOfDataPoints) -
+                    (size.width / (totalNumberOfDataPoints * 2))),
             ((size.height -
                         (size.height / max) *
                             (dataPoints[i].values[0] < 0
@@ -45,13 +57,10 @@ class DataPointPainter extends CustomPainter {
                     2) -
                 (topSpacing / 2));
 
-        Path path = Path();
-        Path path2 = Path();
         path.moveTo(
-            (((size.width / dataPoints[i].values.length) *
-                    (dataPoints[i].values.length -
-                        (dataPoints[i].values.length - 1))) -
-                (size.width / (dataPoints[i].values.length * 2))),
+            ((singleUnitOfWidth *
+                    (totalNumberOfDataPoints - (totalNumberOfDataPoints - 1))) -
+                (size.width / (totalNumberOfDataPoints * 2))),
             size.height - (topSpacing / 2));
 
         path.lineTo(pointerOffset.dx, pointerOffset.dy);
@@ -63,9 +72,8 @@ class DataPointPainter extends CustomPainter {
           // Calculating the offset of the data points
           pointerOffset = Offset(
               size.width -
-                  (((size.width / dataPoints[i].values.length) *
-                          (dataPoints[i].values.length - j)) -
-                      (size.width / (dataPoints[i].values.length * 2))),
+                  ((singleUnitOfWidth * (totalNumberOfDataPoints - j)) -
+                      (size.width / (totalNumberOfDataPoints * 2))),
               ((size.height -
                           ((size.height / max) *
                               (dataPoints[i].values[j] < 0
@@ -81,30 +89,27 @@ class DataPointPainter extends CustomPainter {
           }
         }
         path.lineTo(
-            (((size.width / dataPoints[i].values.length) *
-                    (dataPoints[i].values.length)) -
-                (size.width / (dataPoints[i].values.length * 2))),
+            ((singleUnitOfWidth * totalNumberOfDataPoints) -
+                (size.width / (totalNumberOfDataPoints * 2))),
             size.height - (topSpacing / 2));
         path.close();
         canvas.drawPath(path, dataPlotter);
         canvas.drawPath(path2, lineHighlighter);
       } else {
-        double strokeWidth = 2;
-        Paint totalCircle = Paint()
+        totalCircle
           ..strokeWidth = strokeWidth
           ..color = dataPoints[i].dataPointColor
           ..style = PaintingStyle.stroke;
-        double radius = dataPoints[i].dataPointSize;
-        final Paint dataPlotter = Paint()
+        radius = dataPoints[i].dataPointSize;
+        dataPlotter
           ..color = dataPoints[i].lineColor
           ..strokeWidth = dataPoints[i].lineWidth
           ..style = PaintingStyle.stroke;
 
-        Offset pointerOffset = Offset(
+        pointerOffset = Offset(
             size.width -
-                (((size.width / dataPoints[i].values.length) *
-                        dataPoints[i].values.length) -
-                    (size.width / (dataPoints[i].values.length * 2))),
+                ((singleUnitOfWidth * totalNumberOfDataPoints) -
+                    (size.width / (totalNumberOfDataPoints * 2))),
             ((size.height -
                         (size.height / max) *
                             (dataPoints[i].values[0] < 0
@@ -113,19 +118,16 @@ class DataPointPainter extends CustomPainter {
                     2) -
                 (topSpacing / 2));
 
-        Path path = Path();
-
         path.moveTo(pointerOffset.dx, pointerOffset.dy);
         if (dataPoints[i].showDataPoints) {
           canvas.drawCircle(pointerOffset, radius, totalCircle);
         }
-        for (int j = 1; j < dataPoints[i].values.length; j++) {
+        for (int j = 1; j < totalNumberOfDataPoints; j++) {
           // Calculating the offset of the data points.
           pointerOffset = Offset(
               size.width -
-                  (((size.width / dataPoints[i].values.length) *
-                          (dataPoints[i].values.length - j)) -
-                      (size.width / (dataPoints[i].values.length * 2))),
+                  ((singleUnitOfWidth * (totalNumberOfDataPoints - j)) -
+                      (size.width / (totalNumberOfDataPoints * 2))),
               ((size.height -
                           (size.height / max) *
                               (dataPoints[i].values[j] < 0
