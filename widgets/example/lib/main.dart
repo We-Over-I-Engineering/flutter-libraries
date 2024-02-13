@@ -85,6 +85,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        //--------Bar Graph and Histogram---------//
+        barGraphAndHistogram(), // todo: remove later
         //----------Capsule Button-------------//
         SizedBox(
           width: 250,
@@ -476,7 +478,22 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
         height: 300,
         width: 320,
         barPadding: 5,
-        yaxisValues: [-200, -500, -100, -0, -50, -250, 1000],
+        yaxisValues:
+            //
+            // [4.1, 0.2, -0.8, 0.2, -0.2, 0.2, -0.1],
+            /* [
+          111,
+          2,
+          8,
+          2,
+          2,
+          2,
+          1,
+        ], */
+            // [-105, -2, -8, -2, -2, -2, -1],
+            [10.0, -10.8, -0.1],
+
+        // [-20, -50, 10, 10, -63, -25, -10],
         xaxisValues: [
           'Mon',
           'Tue',
