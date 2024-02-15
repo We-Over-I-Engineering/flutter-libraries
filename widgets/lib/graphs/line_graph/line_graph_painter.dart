@@ -3,8 +3,13 @@ import 'package:weoveri_flutter_widgets/graphs/line_graph/data_line_properties.d
 
 /// Painter to create the data points and the line joining them.
 class DataPointPainter extends CustomPainter {
+  /// List of the line properties class
   final List<LineProperties> dataPoints;
+
+  /// Max value out of all the data points from every line.
   final double max;
+
+  /// Spacing added to the top of the graph widget to adjust for backgorund color.
   final double topSpacing;
 
   DataPointPainter({
@@ -24,11 +29,21 @@ class DataPointPainter extends CustomPainter {
     Path path = Path();
     Path path2 = Path();
     double singleUnitOfWidth;
+    double singleUnitOfHeight;
     int totalNumberOfDataPoints;
 
     for (int i = 0; i < dataPoints.length; i++) {
+      // This calculates the total number of data points in a single line.
+      // It is used to calculate the single unit of width
       totalNumberOfDataPoints = dataPoints[i].values.length;
+
+      // singleUnitOfWidth is the total width of the canvas divided by the number of data points on a line.
+      // This helps in finding the exact position of a data point.
       singleUnitOfWidth = size.width / totalNumberOfDataPoints;
+
+      // singleUnitOfHeight is the total height of the canvas divided by the maximum data point from all the lines.
+      // This helps in finding the exact position of a data point.
+      singleUnitOfHeight = size.height / max;
 
       if (dataPoints[i].filledGraph) {
         totalCircle
@@ -45,37 +60,44 @@ class DataPointPainter extends CustomPainter {
           ..style = PaintingStyle.stroke;
 
         // Offset of the first data point
+        // To get the offset of the first we need to calculate the the horizontal position and the vertical position of the data point
+        // To calculate the horizontal position we multiply single unit of width with the total number of points and subtract it with the width of the canvas.
+        // This positions the data point on the left end of the xaxis increment.
+        // To position it in the center of the xaxis increment we subtract (size.width / (totalNumberOfDataPoints * 2).
+        // To calculate the vertical position we simply multiply the single unit of height with the number of data points and subtract it from the total height of the canvas.
+        // Incase the calculated vertical position is less than zero we equate it to 0 to prevent over flow.
         pointerOffset = Offset(
             size.width -
                 ((singleUnitOfWidth * totalNumberOfDataPoints) -
                     (size.width / (totalNumberOfDataPoints * 2))),
             ((size.height -
-                        (size.height / max) *
+                        (singleUnitOfHeight) *
                             (dataPoints[i].values[0] < 0
                                 ? 0
                                 : dataPoints[i].values[0])) +
                     2) -
                 (topSpacing / 2));
 
-        path.moveTo(
-            ((singleUnitOfWidth *
-                    (totalNumberOfDataPoints - (totalNumberOfDataPoints - 1))) -
-                (size.width / (totalNumberOfDataPoints * 2))),
-            size.height - (topSpacing / 2));
-
-        path.lineTo(pointerOffset.dx, pointerOffset.dy);
+        // Moving our painter to the first point
+        path.moveTo(pointerOffset.dx, pointerOffset.dy);
         path2.moveTo(pointerOffset.dx, pointerOffset.dy);
         if (dataPoints[i].showDataPoints) {
           canvas.drawCircle(pointerOffset, radius, totalCircle);
         }
         for (int j = 1; j < dataPoints[i].values.length; j++) {
           // Calculating the offset of the data points
+          // To get the offset of the data points we need to calculate the the horizontal position and the vertical position of the data points
+          // To calculate the horizontal position we multiply single unit of width with the number of positions the point holds on the xaxis from the right side and subtract it with the width of the canvas.
+          // This positions the data points on the left end of the xaxis increment.
+          // To position it in the center of the xaxis increment we subtract (size.width / (totalNumberOfDataPoints * 2).
+          // To calculate the vertical position we simply multiply the single unit of height with the number of data points and subtract it from the total height of the canvas.
+          // Incase the calculated vertical position is less than zero we equate it to 0 to prevent over flow.
           pointerOffset = Offset(
               size.width -
                   ((singleUnitOfWidth * (totalNumberOfDataPoints - j)) -
                       (size.width / (totalNumberOfDataPoints * 2))),
               ((size.height -
-                          ((size.height / max) *
+                          ((singleUnitOfHeight) *
                               (dataPoints[i].values[j] < 0
                                   ? 0
                                   : dataPoints[i].values[j]))) +
@@ -106,12 +128,19 @@ class DataPointPainter extends CustomPainter {
           ..strokeWidth = dataPoints[i].lineWidth
           ..style = PaintingStyle.stroke;
 
+        // Offset of the first data point
+        // To get the offset of the first we need to calculate the the horizontal position and the vertical position of the data point
+        // To calculate the horizontal position we multiply single unit of width with the total number of points and subtract it with the width of the canvas.
+        // This positions the data point on the left end of the xaxis increment.
+        // To position it in the center of the xaxis increment we subtract (size.width / (totalNumberOfDataPoints * 2).
+        // To calculate the vertical position we simply multiply the single unit of height with the number of data points and subtract it from the total height of the canvas.
+        // Incase the calculated vertical position is less than zero we equate it to 0 to prevent over flow.
         pointerOffset = Offset(
             size.width -
                 ((singleUnitOfWidth * totalNumberOfDataPoints) -
                     (size.width / (totalNumberOfDataPoints * 2))),
             ((size.height -
-                        (size.height / max) *
+                        (singleUnitOfHeight) *
                             (dataPoints[i].values[0] < 0
                                 ? 0
                                 : dataPoints[i].values[0])) +
@@ -124,12 +153,18 @@ class DataPointPainter extends CustomPainter {
         }
         for (int j = 1; j < totalNumberOfDataPoints; j++) {
           // Calculating the offset of the data points.
+          // To get the offset of the data points we need to calculate the the horizontal position and the vertical position of the data points
+          // To calculate the horizontal position we multiply single unit of width with the number of positions the point holds on the xaxis from the right side and subtract it with the width of the canvas.
+          // This positions the data points on the left end of the xaxis increment.
+          // To position it in the center of the xaxis increment we subtract (size.width / (totalNumberOfDataPoints * 2).
+          // To calculate the vertical position we simply multiply the single unit of height with the number of data points and subtract it from the total height of the canvas.
+          // Incase the calculated vertical position is less than zero we equate it to 0 to prevent over flow.
           pointerOffset = Offset(
               size.width -
                   ((singleUnitOfWidth * (totalNumberOfDataPoints - j)) -
                       (size.width / (totalNumberOfDataPoints * 2))),
               ((size.height -
-                          (size.height / max) *
+                          (singleUnitOfHeight) *
                               (dataPoints[i].values[j] < 0
                                   ? 0
                                   : dataPoints[i].values[j])) +
