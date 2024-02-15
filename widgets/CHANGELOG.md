@@ -35,3 +35,8 @@
 
 - Fixed null check issue with text field.
 - Added documentation to enum in curved bar.
+
+## 0.1.1
+
+- Added line graph.
+- Fixed issues in timer.

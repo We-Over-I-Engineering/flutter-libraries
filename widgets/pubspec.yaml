@@ -1,6 +1,6 @@
 name: weoveri_flutter_widgets
 description: The We Over I Flutter Widgets package is a comprehensive library of everyday-use widgets for Flutter users.
-version: 0.0.9
+version: 0.1.1
 homepage: "https://github.com/We-Over-I-Engineering/flutter-libraries/tree/main/widgets"
 
 environment:
@@ -15,7 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

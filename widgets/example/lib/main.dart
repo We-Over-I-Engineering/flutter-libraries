@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weoveri_flutter_widgets/graphs/line_graph/data_line_properties.dart';
 import 'package:weoveri_flutter_widgets/woi_widgets.dart';
 
 void main() {
@@ -85,8 +86,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        //--------Bar Graph and Histogram---------//
-        barGraphAndHistogram(), // todo: remove later
         //----------Capsule Button-------------//
         SizedBox(
           width: 250,
@@ -160,7 +159,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
             ),
           ],
         ),
-
         //----------Radio Buttons-------------//
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -240,8 +238,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
           //----------TextProgressBar----------//
           SizedBox(
             child: WOITextBar(
-              progressValue: 70,
-              tiltValue: -20,
+              progressValue: 50,
+              tiltValue: -5,
               borderRadius: 30,
               textStyle: const TextStyle(
                 fontSize: 150,
@@ -259,7 +257,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               width: 345,
               initialValue: 0,
               sections: const [6, 4, 10, 8],
-              currentProgress: 14,
+              currentProgress: 8,
               tiltValue: -5,
               sectionSpacing: 0,
               barBottomPadding: 0,
@@ -275,13 +273,76 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
           //-----------CurvedBar------------//
           curvedBar(),
           //--------CountDownTimerVariation1---------//
-          countDownTimerVariation1(),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: WOICountdowns(
+              timeInSeconds: 10,
+              timerSize: 200,
+              timerWidth: 20,
+              timerBackgroundColor: Colors.amber[100]!,
+              timerFillColor: Colors.amber,
+              cooldownTimerBoxDecoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(200),
+              ),
+            ),
+          ),
           //--------CountdownTimerVariation2---------//
           const WOICountdownTimer(
             isHoursNeeded: true,
           ),
-          //--------Bar Graph and Histogram---------//
-          barGraphAndHistogram(),
+          //---------LineGraph---------//
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+            ),
+            child: WOILineGraph(
+              height: 300,
+              width: 340,
+              heading: const Text(
+                'Profits',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              xaxisLabel: const Text(
+                'Days of the week',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              yaxisLabel: const Text(
+                'Daily profit',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              leftSpacing: 30,
+              bottomSpacing: 50,
+              topSpacing: 50,
+              yaxisValues: [
+                LineProperties(
+                  values: const [0.1, 0.2, 0.3, 0.4, 10, 0.6, 0.7, 0.8, 0.1],
+                  filledGraph: true,
+                  fillColor: Colors.lightBlue.withOpacity(0.1),
+                ),
+                LineProperties(
+                  values: const [1, 2, 3, 8, 20, 9, 7, 8, 1],
+                  filledGraph: false,
+                  fillColor: Colors.lightBlue.withOpacity(0.1),
+                  showDataPoints: true,
+                ),
+                LineProperties(
+                  values: const [9, 9, 9, 9, 9, 9, 9, 9, 9],
+                  filledGraph: false,
+                  fillColor: Colors.lightBlue.withOpacity(0.1),
+                  showDataPoints: false,
+                ),
+              ],
+              xaxisValues: const [1, 2, 3, 4, 5, 6, 'Sun', '', ''],
+              dottedYaxis: true,
+              xaxisAndTextGap: 20,
+              xaxisSeparatorLength: 3,
+            ),
+          ),
         ],
       ),
     );

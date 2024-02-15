@@ -18,7 +18,7 @@ import 'package:weoveri_flutter_widgets/buttons/button_style.dart';
 class WOITextButton extends StatelessWidget {
   /// The all in one button
   const WOITextButton({
-    Key? key,
+    super.key,
     this.onTap,
     this.heigth,
     this.width,
@@ -26,7 +26,7 @@ class WOITextButton extends StatelessWidget {
     this.buttonStyle,
     required this.text,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   /// On Tap action for the Button
   final VoidCallback? onTap;

@@ -119,6 +119,7 @@ class _WOICountdownsState extends State<WOICountdowns> {
     return timerWidget();
   }
 
+  // Function to update the state of the timer eg from start to pause.
   void updateState(TimerState value) {
     timerState = value;
     if (widget.onStateChange != null) {
@@ -127,6 +128,7 @@ class _WOICountdownsState extends State<WOICountdowns> {
     setState(() {});
   }
 
+  // Function to update the value of the timer i.e the fill color.
   void updateTimer() {
     progressValue += (1 / widget.timeInSeconds);
     if (widget.onChange != null) {
@@ -142,20 +144,25 @@ class _WOICountdownsState extends State<WOICountdowns> {
         onTap: () {
           if (cooldownTimer == 0) {
             updateState(TimerState.timerRunning);
-            Timer.periodic(const Duration(seconds: 1), (timer) {
-              if (timerState == TimerState.pausedTimer) {
-                timer.cancel();
-                return;
-              }
-              if (progressValue >= 1) {
-                updateState(TimerState.timerCompleted);
+            Timer.periodic(
+              const Duration(seconds: 1),
+              (timer) {
+                // If the timer is presed during running state it will be canceled/paused.
+                if (timerState == TimerState.pausedTimer) {
+                  timer.cancel();
+                  return;
+                }
+                // Progress value is between 0 and 1 so if progress value is equal to 1 or greater the timer will be completed.
+                if (progressValue >= 1) {
+                  updateState(TimerState.timerCompleted);
+                  setState(() {});
+                  timer.cancel();
+                  return;
+                }
+                updateTimer();
                 setState(() {});
-                timer.cancel();
-                return;
-              }
-              updateTimer();
-              setState(() {});
-            });
+              },
+            );
           }
           if (cooldownTimer != 0) {
             updateState(TimerState.preTimerRunning);
@@ -305,6 +312,8 @@ class _WOICountdownsState extends State<WOICountdowns> {
         ],
       );
     }
+
+    // Default widget returned on initial state. This is a dummy and will never be returned.
     return SizedBox(
       height: widget.timerSize,
       width: widget.timerSize,

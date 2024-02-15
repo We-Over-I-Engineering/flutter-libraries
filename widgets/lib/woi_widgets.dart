@@ -23,4 +23,4 @@ export 'progress_bar/progress_bar.dart';
 export 'countdowns/countdowns.dart';
 
 /// Library for bar graphs
-export 'bar_graphs/bar_graph.dart';
+export 'graphs/graphs.dart';
