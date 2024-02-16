@@ -1,27 +1,88 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+/// The [WOIBarGraph] is a simple and easy to use bar graph which can be modified to be used as a histogram as well.
+///
+/// Here is an example of the [WOIBarGraph]
+///
+/// ```dart
+///  WOIBarGraph(
+///       height: 300,
+///    width: 320,
+///    barPadding: 5,
+///   yaxisValues: [10.0, -10.8, -0.1],
+///   xaxisValues: [
+///   'Mon',
+///   'Tue',
+///   'Wed',
+///   'Thu',
+///   'Fri',
+///   'Sat',
+///   'Sun',
+///  ],
+///),
+///,,,
+///
+
 class WOIBarGraph extends StatefulWidget {
   const WOIBarGraph({
     super.key,
+
+    /// Values for the y component of the data points
     required this.yaxisValues,
+
+    /// Values for the y component of the data points
     required this.xaxisValues,
+
+    /// Height of the graph
     required this.height,
+
+    /// Width of the graph
     required this.width,
+
+    /// Labels to mark what the data on the y axis represents.
     this.yAxisLabel,
+
+    /// Labels to mark what the data on the x axis represents.
     this.xAxisLabel,
+
+    /// Hrading to mark what the data of the graph represents.
     this.graphHeadingText,
+
+    /// Color of the bars.
     this.barColors = Colors.blue,
+
+    /// Color of the y axis increments in the background.
     this.incrementColors = Colors.red,
+
+    /// Background color of the complete widget. To adjust the background color properly to enwrap the whole widget a [topPadding] might be needed.
     this.backgroundColor = Colors.white,
+
+    /// The left and the right padding on the bars. Setting this to 0 changes the bar graph to a historgram.
     this.barPadding = 5,
+
+    /// The gap between the y axis increment lines and the increment values.
     this.yaxisTextAndLinePadding = 30,
+
+    /// The gap between the graph and its labels
     this.labelPadding,
+
+    /// The gap between the graph and its labels
     this.headingPadding,
+
+    /// Text style for the labels and the increments.
     this.textStyle,
+
+    /// Size for the text box for the label on the y axis. Might need to adjust this to fit different sized labels.
     this.yaxisLabelTextBoxSize = 30,
+
+    /// Size for the text box for the heading. Might need to adjust this to fit different sized headings.
     this.headingTextBoxSize = 30,
+
+    /// Size for the text box for the label on the x axis. Might need to adjust this to fit different sized labels.
     this.xaxisLableTextBoxSize = 30,
+
+    /// This is to adding a padding on top. This will add a colored piece on top of the graph so that the background color completely enwraps the graph.
     this.topPadding = 0,
   });
   final List<double> yaxisValues;
@@ -55,7 +116,6 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
   double tempForMin = 0;
   double increment = 0.2;
   int roundingFactor = 1;
-  // List<double> values = [];
   double numberOfIncrements = 0;
   List<double> divisions = [];
   double partinionValue = 0;
@@ -194,10 +254,11 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
     // Calculate the value for a single section
     partinionValue = widget.height / (divisions.length - 1);
 
-    return positiveGraph();
+    return graph();
   }
 
-  Widget positiveGraph() {
+  // Function to layout all the individual components of the graph to their appropriate position
+  Widget graph() {
     return Container(
       color: widget.backgroundColor,
       width: (widget.width + widget.yaxisLabelTextBoxSize),
@@ -240,7 +301,7 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
                     alignment: Alignment.bottomLeft,
                     children: [
                       yaxisLines(numberOfIncrements),
-                      positiveGraphBars(),
+                      barsForGraph(),
                     ],
                   ),
                 ),
@@ -285,6 +346,7 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
     );
   }
 
+// Function to create the y axis increments and lines in the background
   Widget yaxisLines(double numberOfIncrements) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -380,7 +442,8 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
     );
   }
 
-  Widget positiveGraphBars() {
+  // Function to create the bars for the given data
+  Widget barsForGraph() {
     return Padding(
       padding: EdgeInsets.only(
         left: widget.yaxisTextAndLinePadding,
@@ -493,10 +556,12 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
     );
   }
 
+  // Function to check if the data points are negative
   bool isNegativeValue(int index, double value) {
     return value < 0;
   }
 
+  // Wdiget to create the xaxis line.
   Widget xAxisContainerBorder(double hardCodedContainerHeight) {
     return Container(
       height: hardCodedContainerHeight,
