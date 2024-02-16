@@ -40,3 +40,8 @@
 
 - Added line graph.
 - Fixed issues in timer.
+
+## 0.1.2
+
+- Added graphs
+- Fixed issues with countdown timers

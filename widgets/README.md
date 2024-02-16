@@ -28,7 +28,7 @@ Here are the list of widgets in the package. You can visit the link below to fin
 
 ```yaml
 # add this line to your dependencies
-weoveri_flutter_widgets: ^0.1.1
+weoveri_flutter_widgets: ^0.1.2
 ```
 
 ```dart

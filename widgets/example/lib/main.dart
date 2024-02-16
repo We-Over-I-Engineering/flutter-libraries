@@ -343,6 +343,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               xaxisSeparatorLength: 3,
             ),
           ),
+          barGraphAndHistogram(),
         ],
       ),
     );
