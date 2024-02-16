@@ -123,19 +123,6 @@ class _WOIBarGraphState extends State<WOIBarGraph> {
   int positiveNumberOfIncrements = 0;
   int decimal = 0;
 
-  bool isDivisibleByRequiredIncrement(double value) {
-    if (value % 10 == 0) {
-      return true;
-    }
-    if (value % 5 == 0) {
-      return true;
-    }
-    if (value % 0.5 == 0) {
-      return true;
-    }
-    return false;
-  }
-
   List<double> createBackgroundDivision(List<double> values) {
     // if values are empty then return empty
     if (values.isEmpty) {
