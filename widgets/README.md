@@ -23,12 +23,14 @@ Here are the list of widgets in the package. You can visit the link below to fin
 - [TextField](https://pub.dev/documentation/weoveri_flutter_widgets/latest/text_field/text_field-library.html)
 - [Steppers](https://pub.dev/documentation/weoveri_flutter_widgets/latest/steppers/steppers-library.html)
 - [Progress Bars](https://pub.dev/documentation/weoveri_flutter_widgets/latest/progress_bar/progress_bar-library.html)
+- [Countdowns](https://pub.dev/documentation/weoveri_flutter_widgets/latest/countdowns/countdowns-library.html)
+- [Graphs](https://pub.dev/documentation/weoveri_flutter_widgets/latest/graphs/graphs-library.html)
 
 ## Installation
 
 ```yaml
 # add this line to your dependencies
-weoveri_flutter_widgets: ^0.1.2
+weoveri_flutter_widgets: ^0.1.3
 ```
 
 ```dart

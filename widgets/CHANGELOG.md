@@ -45,3 +45,7 @@
 
 - Added graphs
 - Fixed issues with countdown timers
+
+## 0.1.3
+
+- Documentation fixes
